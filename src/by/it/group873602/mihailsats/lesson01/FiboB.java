@@ -19,13 +19,25 @@ public class FiboB {
 
         //вычисление чисел простым быстрым методом
         FiboB fibo = new FiboB();
-        int n = 55555;
+        int n = 300;
         System.out.printf("fastB(%d)=%d \n\t time=%d \n\n", n, fibo.fastB(n), fibo.time());
     }
 
     BigInteger fastB(Integer n) {
-        //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
-        return BigInteger.ZERO;
+        if(n==0)
+            return BigInteger.ZERO;
+        if (n == 1)
+            return BigInteger.ONE;
+        BigInteger x = BigInteger.ONE;
+        BigInteger y = BigInteger.ONE;
+        BigInteger temp = BigInteger.ZERO;
+        for (int i = 2; i < n; i++)
+        {
+            temp = x.add(y);
+            x = y;
+            y = temp;
+        }
+        return temp;
     }
 
 }
