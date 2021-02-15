@@ -38,7 +38,6 @@ public class A_VideoRegistrator {
         //и теперь пропустим все покрываемые события
         //за время до конца работы, увеличивая индекс
 
-        
         Arrays.sort(events);
         result.add(events[0]);
         double end = events[0] + workDuration;
