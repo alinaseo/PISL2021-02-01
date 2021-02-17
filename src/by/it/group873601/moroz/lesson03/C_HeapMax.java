@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,27 +38,49 @@ import java.util.Scanner;
 
 public class C_HeapMax {
 
-    private class MaxHeap {
+    private class MaxHeap<E extends Comparable<E>> {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение.
         //Будет мало? Ну тогда можете его собрать как Generic и/или использовать в варианте B
-        private List<Long> heap = new ArrayList<>();
+        private List<E> heap = new ArrayList<>();
 
         int siftDown(int i) { //просеивание вверх
+            while(2 * i + 1 < heap.size()) {
+                int j = 2 * i + 1;
+
+                if (2 * i + 2 < heap.size() && heap.get(2 * i + 2).compareTo(heap.get(2 * i + 1)) > 0) {
+                    j = 2 * i + 2;
+                }
+                if (heap.get(i).compareTo(heap.get(j)) >= 0) {
+                    break;
+                }
+
+                Collections.swap(heap, i, j);
+                i = j;
+            }
 
             return i;
         }
 
         int siftUp(int i) { //просеивание вниз
+            while (heap.get(i).compareTo(heap.get((i - 1) / 2)) > 0) {
+                Collections.swap(heap, i, (i - 1) / 2);
+                i = (i - 1) / 2;
+            }
 
             return i;
         }
 
-        void insert(Long value) { //вставка
+        void insert(E value) { //вставка
+            heap.add(value);
+            siftUp(heap.size() - 1);
         }
 
-        Long extractMax() { //извлечение и удаление максимума
-            Long result = null;
+        E extractMax() { //извлечение и удаление максимума
+            E result = heap.remove(0);
+
+            heap.add(0, heap.remove(heap.size() - 1));
+            siftDown(0);
 
             return result;
         }
@@ -67,7 +90,7 @@ public class C_HeapMax {
     //эта процедура читает данные из файла, ее можно не менять.
     Long findMaxValue(InputStream stream) {
         Long maxValue=0L;
-        MaxHeap heap = new MaxHeap();
+        MaxHeap<Long> heap = new MaxHeap<>();
         //прочитаем строку для кодирования из тестового файла
         Scanner scanner = new Scanner(stream);
         Integer count = scanner.nextInt();
