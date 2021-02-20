@@ -14,6 +14,7 @@ package by.it.group873603.portnov.lesson02;
  */
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class C_GreedyKnapsack {
@@ -33,14 +34,11 @@ public class C_GreedyKnapsack {
                     ", weight=" + weight +
                     '}';
         }
-
         @Override
         public int compareTo(Item o) {
-            //тут может быть ваш компаратор
-
-
-            return 0;
+            return o.cost / o.weight - this.cost / this.weight;
         }
+
     }
 
     double calc(File source) throws FileNotFoundException {
@@ -57,17 +55,24 @@ public class C_GreedyKnapsack {
         }
         System.out.printf("Всего предметов: %d. Рюкзак вмещает %d кг.\n",n,W);
 
-        //тут необходимо реализовать решение задачи
-        //итогом является максимально воможная стоимость вещей в рюкзаке
-        //вещи можно резать на кусочки (непрерывный рюкзак)
+        Arrays.sort(items);
+
+        int capacity = 0;
         double result = 0;
-        //тут реализуйте алгоритм сбора рюкзака
-        //будет особенно хорошо, если с собственной сортировкой
-        //кроме того, можете описать свой компаратор в классе Item
-        //ваше решение.
+        int i = 0;
 
-
-
+        while (i < items.length) {
+            if (W == capacity) {
+                return result;
+            } else if (W - capacity >= items[i].weight) {
+                capacity += items[i].weight;
+                result += items[i].weight * items[i].cost / items[i].weight;
+            } else {
+                result += (W - capacity) * items[i].cost / items[i].weight;
+                capacity += W - capacity;
+            }
+            i++;
+        }
 
 
         System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
