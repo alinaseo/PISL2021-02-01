@@ -40,11 +40,14 @@ public class A_VideoRegistrator {
 
         Arrays.sort(events);
 
-        while (events.length > i) {
+        while (i < events.length) {
             result.add(events[i]);
-            double end = events[i] + workDuration;
-
-            while(events.length > i && (events[i] <= end)) i++;
+            double endTime = events[i] + workDuration;
+            i++;
+            while (events[i] <= endTime) {
+                i++;
+                if (i == events.length) break;
+            }
         }
 
         return result;                        //вернем итог
