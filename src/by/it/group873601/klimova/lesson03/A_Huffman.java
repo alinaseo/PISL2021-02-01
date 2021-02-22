@@ -38,6 +38,8 @@ import java.util.*;
 //        d: 111
 //        01001100100111
 
+//ТУЦ-ТУЦ-ТУЦ, я есть на лк, 22.02))
+
 public class A_Huffman {
 
     //Изучите классы Node InternalNode LeafNode
