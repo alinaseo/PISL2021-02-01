@@ -56,24 +56,23 @@ public class B_Sheduler {
         });
 
         int i = 0;
-        while (i < events.length && (events[i].start < from))
-            i++;
+        while (i < events.length && (events[i].start < from));
 
-        int min;
+        int check;
         int current = from;
         do {
-            min = -1;
+            check = -1;
             for (int j = i; j < events.length; j++) {
-                if (current <= events[j].start && events[j].stop <= to && (min == -1 || events[j].stop < events[min].stop))
-                    min = j;
+                if (current <= events[j].start && events[j].stop <= to && (check == -1 || events[j].stop < events[check].stop))
+                    check = j;
             }
-            if (min != -1) {
-                result.add(events[min]);
-                i = min + 1;
-                current = events[min].stop;
+            if (check != -1) {
+                result.add(events[check]);
+                i = check + 1;
+                current = events[check].stop;
             }
 
-        } while (min != -1);
+        } while (check != -1);
 
         return result;                        //вернем итог
     }
