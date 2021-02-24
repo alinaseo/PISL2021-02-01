@@ -1,4 +1,4 @@
-package by.it.group873601.zhivitsa.lesson02;
+package by.it.group873602.mihailsats.lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,16 +47,35 @@ public class B_Sheduler {
         //в период [from, int] (включительно).
         //оптимизация проводится по наибольшему числу непересекающихся событий.
         //начало и конец событий могут совпадать.
+
         List<Event> result;
         result = new ArrayList<>();
-        //ваше решение.
-        Arrays.sort(events, Comparator.comparingInt(e -> e.stop));
-        for (Event event : events) {
-            if (event.start >= from) {
-                result.add(event);
-                from = event.stop;
+        Arrays.sort(events, new Comparator<Event>() {//сортируем по возрастанию по правым частям отрезков
+
+            @Override
+            public int compare(Event o1, Event o2) {
+                return o1.stop - o2.stop;
+            }
+        });
+//        for(int i=0;i<events.length;i++)
+//            System.out.println(events[i]);
+//        result.add(events[0]);
+        result.add(events[0]);
+        int cnt=1;//кол-во удовл. заявок
+        int last=0;//номер последней удовл. заявки
+        for(int i=1;i<events.length;i++){
+            if(events[i].start>=events[last].stop){
+                cnt++;
+                last=i;
+                result.add(new Event(events[i].start,events[last].stop));
             }
         }
+        //ваше решение.
+
+
+
+
+
 
         return result;                        //вернем итог
     }

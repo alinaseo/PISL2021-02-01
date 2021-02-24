@@ -1,8 +1,7 @@
-package by.it.group873601.zhivitsa.lesson02;
+package by.it.group873602.trotski.lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 /*
 даны интервальные события events
@@ -50,11 +49,26 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         //ваше решение.
-        Arrays.sort(events, Comparator.comparingInt(e -> e.stop));
-        for (Event event : events) {
-            if (event.start >= from) {
-                result.add(event);
-                from = event.stop;
+        //в рассписание входит заявка, где stop меньше
+        Arrays.sort(events, (a, b) -> { //компоратор для сорта исходного массива
+           if(a.start < b.start) return -1;
+           if(a.start == b.start && a.stop == b.stop) return 0;
+           else if(a.start == b.start){
+               if( a.stop < b.stop) return -1;
+               else return 1;
+           }
+           else return 1;
+        });
+        int countFrom = 0;
+        while(events[countFrom].start < from) countFrom++;
+        int currentStop;
+        while(countFrom < events.length && events[countFrom].stop < to){
+            result.add(events[countFrom]);
+            currentStop = events[countFrom].stop;
+            countFrom++;
+            while(currentStop > events[countFrom].start){
+                countFrom++;
+                if (countFrom == events.length) break;
             }
         }
 

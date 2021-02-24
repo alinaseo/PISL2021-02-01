@@ -1,4 +1,4 @@
-package by.it.group873601.zhivitsa.lesson02;
+package by.it.group873603.ryzhenko.lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,13 +50,22 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         //ваше решение.
-        Arrays.sort(events, Comparator.comparingInt(e -> e.stop));
-        for (Event event : events) {
-            if (event.start >= from) {
-                result.add(event);
-                from = event.stop;
+
+        Arrays.sort(events, new Comparator<Event>() {
+            @Override
+            public int compare (Event e1, Event e2) {
+                return Integer.compare(e1.stop, e2.stop);
+            }
+        });
+        for (int i = 0; i < events.length; i++){
+            if (events[i].start >= from){
+                result.add(events[i]);
+                from = events[i].stop;
             }
         }
+
+
+
 
         return result;                        //вернем итог
     }

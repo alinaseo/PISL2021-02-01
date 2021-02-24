@@ -1,9 +1,9 @@
-package by.it.group873601.zhivitsa.lesson02;
+package by.it.group873601.zaleski.lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+
 /*
 даны интервальные события events
 реализуйте метод calcStartTimes, так, чтобы число принятых к выполнению
@@ -16,18 +16,15 @@ public class B_Sheduler {
     static class Event {
         int start;
         int stop;
-
         Event(int start, int stop) {
             this.start = start;
             this.stop = stop;
         }
-
         @Override
         public String toString() {
             return "("+ start +":" + stop + ")";
         }
     }
-
     public static void main(String[] args) {
         B_Sheduler instance = new B_Sheduler();
         Event[] events = {  new Event(0, 3),  new Event(0, 1), new Event(1, 2), new Event(3, 5),
@@ -37,11 +34,9 @@ public class B_Sheduler {
                 new Event(4, 5),  new Event(6, 7), new Event(6, 9), new Event(7, 9),
                 new Event(8, 9),  new Event(4, 6), new Event(8, 10), new Event(7, 10)
         };
-
         List<Event> starts = instance.calcStartTimes(events,0,10);  //рассчитаем оптимальное заполнение аудитории
         System.out.println(starts);                                 //покажем рассчитанный график занятий
     }
-
     List<Event> calcStartTimes(Event[] events, int from, int to) {
         //events - события которые нужно распределить в аудитории
         //в период [from, int] (включительно).
@@ -50,14 +45,27 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         //ваше решение.
-        Arrays.sort(events, Comparator.comparingInt(e -> e.stop));
-        for (Event event : events) {
-            if (event.start >= from) {
-                result.add(event);
-                from = event.stop;
+        Arrays.sort(events, (a, b) -> {
+            if (a.start == b.start && a.stop == b.stop) return 0;
+            else if (a.start < b.start) return -1;
+            else if (a.start == b.start) {
+                if (a.stop < b.stop) return -1;
+                else return 1;
+            }
+            else return 1;
+        });
+        int i = 0;
+        while (events[i].start < from) i++;
+        int s;
+        while (i < events.length && events[i].stop <= to) {
+            result.add(events[i]);
+            s = events[i].stop;
+            i++;
+            while (events[i].start < s) {
+                i++;
+                if (i == events.length) break;
             }
         }
-
         return result;                        //вернем итог
     }
 }

@@ -1,9 +1,6 @@
-package by.it.group873601.zhivitsa.lesson02;
+package by.it.group873601.silitski.lesson02;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 /*
 даны интервальные события events
 реализуйте метод calcStartTimes, так, чтобы число принятых к выполнению
@@ -50,14 +47,63 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         //ваше решение.
-        Arrays.sort(events, Comparator.comparingInt(e -> e.stop));
-        for (Event event : events) {
-            if (event.start >= from) {
-                result.add(event);
-                from = event.stop;
+
+        List<Event> all= Arrays.asList(events);
+        List<Event> bufer=new ArrayList<>();
+
+        Collections.sort(all, new Comparator<Event>() {
+            @Override
+            public int compare(Event o1, Event o2) {
+                return Integer.valueOf(o1.start).compareTo(o2.start);
+            }
+        });
+
+        int memory=from,cheakFirst=0,cheakTwo=0;
+
+        for(int i = 0; i < all.size(); i++){
+            //первая запись
+            if(cheakFirst==0) {
+                if (all.get(i).start == memory) {
+                    bufer.add(all.get(i));
+                } else {
+                    Collections.sort(bufer, new Comparator<Event>() {
+                        @Override
+                        public int compare(Event o1, Event o2) {
+                            return Integer.valueOf(o1.stop).compareTo(o2.stop);
+                        }
+                    });
+                    result.add(bufer.get(0));
+                    bufer = new ArrayList<>();
+                    cheakFirst = 1;
+                }
+            }
+
+            //основная запись
+            if(cheakTwo==0 && cheakFirst==1){
+                if(all.get(i).start>=result.get(result.size()-1).stop){
+                    bufer.add(all.get(i));
+                    cheakTwo=1;
+                    memory=all.get(i).start;
+                }
+            }else if(cheakTwo==1 && cheakFirst==1){
+                if (all.get(i).start == memory) {
+                    bufer.add(all.get(i));
+                } else {
+                    Collections.sort(bufer, new Comparator<Event>() {
+                        @Override
+                        public int compare(Event o1, Event o2) {
+                            return Integer.valueOf(o1.stop).compareTo(o2.stop);
+                        }
+                    });
+                    result.add(bufer.get(0));
+                    bufer = new ArrayList<>();
+                    cheakTwo=0;
+                    //проверка на выход за пределы
+                    if(result.get(result.size()-1).stop>to || result.get(result.size()-1).start>to)
+                        break;
+                }
             }
         }
-
         return result;                        //вернем итог
     }
 }
