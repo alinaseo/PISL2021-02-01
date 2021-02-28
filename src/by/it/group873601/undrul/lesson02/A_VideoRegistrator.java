@@ -1,6 +1,7 @@
 package by.it.group873601.undrul.lesson02;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /*
 даны события events
@@ -10,7 +11,7 @@ import java.util.List;
 Алгоритм жадный. Для реализации обдумайте надежный шаг.
 */
 
-public class A_VideoRegistrator {
+public class  A_VideoRegistrator {
 
     public static void main(String[] args) {
         A_VideoRegistrator instance=new A_VideoRegistrator();
@@ -37,7 +38,15 @@ public class A_VideoRegistrator {
         //и теперь пропустим все покрываемые события
         //за время до конца работы, увеличивая индекс
 
-
+        Arrays.sort(events);
+        while(i< events.length){
+            result.add(events[i]);
+            double end = events[i] + workDuration;
+            i++;
+            while (i< events.length && events[i]<=end){
+                i++;
+            }
+        }
 
         return result;                        //вернем итог
     }
