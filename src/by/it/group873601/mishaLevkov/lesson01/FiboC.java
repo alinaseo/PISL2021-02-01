@@ -36,7 +36,12 @@ public class FiboC {
         for (int i = 2; i <= m * m - 1; i++) {
             arr.add((arr.get(i - 1) + arr.get(i - 2)) % m);
         }
-        return arr.get((int) n % arr.size());
+        int pisanoLength = 0;
+        for (int i = 0; i < arr.size() - 1; i++) {
+            if (arr.get(0) == arr.get(i) && arr.get(1) == arr.get(i + 1) && i != 0) break;
+            pisanoLength++;
+        }
+        return arr.get((int) n % pisanoLength);
     }
 }
 
