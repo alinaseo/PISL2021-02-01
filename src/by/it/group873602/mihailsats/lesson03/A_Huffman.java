@@ -1,8 +1,7 @@
-package by.it.a_khmelev.lesson03;
+package by.it.group873602.mihailsats.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 //Lesson 3. A_Huffman.
@@ -120,23 +119,39 @@ public class A_Huffman {
         //все комментарии от тестового решения были оставлены т.к. это задание A.
         //если они вам мешают их можно удалить
 
-        Map<Character, Integer> count = new HashMap<>();
         //1. переберем все символы по очереди и рассчитаем их частоту в Map count
             //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
-
+        char str[]=s.toCharArray();
+        Map<Character, Integer> count = new HashMap<>();
+        for(int i=0;i<s.length();i++){
+            if (count.containsKey(str[i])){
+                count.put(str[i], count.get(str[i]) + 1);
+            }
+            else{
+                count.put(str[i],1);
+            }
+        }
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
-
+        for (Map.Entry<Character, Integer> entry : count.entrySet()) {
+            priorityQueue.add(new LeafNode(entry.getValue(), entry.getKey()));
+        }
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
         //построим дерево кодирования Хаффмана.
         //У родителя частоты детей складываются.
-
+        while (priorityQueue.size() > 1) {
+            Node node1 = priorityQueue.poll();
+            Node node2 = priorityQueue.poll();
+            priorityQueue.add(new InternalNode(node1, node2));
+        }
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
-        //.....
-
+        priorityQueue.peek().fillCodes("");
+        for (int i = 0; i < s.length(); i++) {
+            sb.append(codes.get(s.charAt(i)));
+        }
         return sb.toString();
         //01001100100111
         //01001100100111
