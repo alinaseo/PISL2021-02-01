@@ -4,7 +4,7 @@ package by.it.group873603.svirbut.lesson02;
 1) объем рюкзака 4
 2) число возможных предметов 60
 3) сам набор предметов
-    100 50
+    цена 100 вес 50
     120 30
     100 50
 Все это указано в файле (by/it/a_khmelev/lesson02/greedyKnapsack.txt)
