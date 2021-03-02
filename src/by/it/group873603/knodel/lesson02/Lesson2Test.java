@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 public class Lesson2Test {
     /*
+    11
     для прохождения тестов создайте JUnit-конфигурацию на свой пакет:
     Поля:
     Name:               Test a_khmelev (тут ваша фамилия)
