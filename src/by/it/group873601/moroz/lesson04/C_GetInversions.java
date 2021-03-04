@@ -3,6 +3,7 @@ package by.it.group873601.moroz.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -35,6 +36,37 @@ Sample Output:
 
 public class C_GetInversions {
 
+    int merge(int[] result, int[] a, int[] b) {
+        int aIndex = 0;
+        int bIndex = 0;
+        int inversionsCount = 0;
+
+        while (aIndex < a.length || bIndex < b.length) {
+            if (bIndex == b.length || (aIndex < a.length && a[aIndex] <= b[bIndex])) {
+                result[aIndex + bIndex] = a[aIndex];
+                aIndex++;
+            }
+            else {
+                result[aIndex + bIndex] = b[bIndex];
+                inversionsCount += a.length - aIndex;
+                bIndex++;
+            }
+        }
+
+        return inversionsCount;
+    }
+
+    int invCount(int[] arr) {
+        if (arr.length < 2)
+            return 0;
+
+        int m = (arr.length + 1) / 2;
+        int[] left = Arrays.copyOfRange(arr, 0, m);
+        int[] right = Arrays.copyOfRange(arr, m, arr.length);
+
+        return invCount(left) + invCount(right) + merge(arr, left, right);
+    }
+
     int calc(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
@@ -52,7 +84,7 @@ public class C_GetInversions {
 
 
 
-
+        result = invCount(a);
 
 
 
