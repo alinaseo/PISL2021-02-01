@@ -3,7 +3,9 @@ package by.it.group873601.moroz.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /*
 Реализуйте сортировку слиянием для одномерного массива.
@@ -54,6 +56,38 @@ public class B_MergeSort {
         }
     }
 
+    int[] newMerge(int[] a, int[] b) {
+        int aIndex = 0;
+        int bIndex = 0;
+        int[] merged = new int[a.length + b.length];
+
+        for (int k = 0; k < merged.length; k++) {
+            if (bIndex == b.length || (aIndex < a.length && a[aIndex] < b[bIndex])) {
+                merged[k] = a[aIndex];
+                aIndex++;
+            }
+            else {
+                merged[k] = b[bIndex];
+                bIndex++;
+            }
+        }
+
+        return merged;
+    }
+
+    int[] newMergeSort(int[] a) {
+        if (a.length == 1) {
+            return a;
+        }
+
+        int leftSize = a.length / 2;
+
+        int[] left = Arrays.copyOfRange(a, 0, leftSize);
+        int[] right = Arrays.copyOfRange(a, leftSize, a.length);
+
+        return newMerge(newMergeSort(left), newMergeSort(right));
+    }
+
     int[] getMergeSort(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
@@ -72,7 +106,7 @@ public class B_MergeSort {
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
 
-        a = mergeSort(a, 0, a.length - 1);
+        a = newMergeSort(a);
 
 
 
