@@ -3,7 +3,7 @@ package by.it.group873601.moroz.lesson05;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Scanner;
+import java.util.*;
 
 /*
 Видеорегистраторы и площадь.
@@ -43,8 +43,14 @@ public class A_QSort {
         int stop;
 
         Segment(int start, int stop){
-            this.start = start;
-            this.stop = stop;
+            if (start > stop) {
+                this.start = stop;
+                this.stop = start;
+            }
+            else {
+                this.start = start;
+                this.stop = stop;
+            }
             //тут вообще-то лучше доделать конструктор на случай если
             //концы отрезков придут в обратном порядке
         }
@@ -52,10 +58,42 @@ public class A_QSort {
         @Override
         public int compareTo(Object o) {
             //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+            if (o instanceof Integer) {
+                return Integer.compare(this.start, (int) o);
+            }
+            return -1;
         }
     }
 
+    void quickSort(Segment[] arr, int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
+        }
+    }
+
+    int partition(Segment[] arr, int begin, int end) {
+        Segment pivot = arr[end];
+        int i = begin - 1;
+
+        for (int j = begin; j < end; j++) {
+            if (arr[j].compareTo(pivot) <= 0) {
+                i++;
+
+                Segment temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        Segment temp = arr[i + 1];
+        arr[i + 1] = arr[end];
+        arr[end] = temp;
+
+        return i + 1;
+    }
 
     int[] getAccessory(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -81,8 +119,19 @@ public class A_QSort {
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
+        quickSort(segments, 0, segments.length - 1);
 
+        for (int i = 0; i < points.length; i++) {
+            int count = 0;
 
+            for (int j = 0; j < segments.length; j++) {
+                if (points[i] >= segments[j].start && points[i] <= segments[j].stop) {
+                    count++;
+                }
+            }
+
+            result[i] = count;
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
