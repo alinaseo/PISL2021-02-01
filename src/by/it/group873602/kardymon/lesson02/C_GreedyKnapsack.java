@@ -14,6 +14,7 @@ package by.it.group873602.kardymon.lesson02;
  */
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class C_GreedyKnapsack {
@@ -37,9 +38,7 @@ public class C_GreedyKnapsack {
         @Override
         public int compareTo(Item o) {
             //тут может быть ваш компаратор
-
-
-            return 0;
+            return Double.compare((double)this.cost / (double)this.weight, (double)o.cost / (double)o.weight);
         }
     }
 
@@ -66,9 +65,12 @@ public class C_GreedyKnapsack {
         //кроме того, можете описать свой компаратор в классе Item
         //ваше решение.
 
-
-
-
+        Arrays.sort(items);
+        for (int i = n - 1; i >= 0 && W > 0; i--) {
+            double w = Math.min(items[i].weight, W);
+            W -= w;
+            result += (double)items[i].cost * w / items[i].weight;
+        }
 
         System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
         return result;
