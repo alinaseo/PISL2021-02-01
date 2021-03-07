@@ -124,10 +124,17 @@ public class A_QSort {
         for (int i = 0; i < points.length; i++) {
             int count = 0;
 
-            for (int j = 0; j < segments.length; j++) {
+            int j = 0;
+            while(j < segments.length) {
                 if (points[i] >= segments[j].start && points[i] <= segments[j].stop) {
                     count++;
                 }
+                else {
+                    while(points[i] <= segments[j].start && points[i] >= segments[j].stop) {
+                        j++;
+                    }
+                }
+                j++;
             }
 
             result[i] = count;
