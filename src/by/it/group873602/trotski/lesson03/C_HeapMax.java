@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,22 +44,59 @@ public class C_HeapMax {
         //Будет мало? Ну тогда можете его собрать как Generic и/или использовать в варианте B
         private List<Long> heap = new ArrayList<>();
 
-        int siftDown(int i) { //просеивание вверх
 
+
+        int siftDown(int i) { //просеивание вверх
+            int leftChild;
+            int rightChild;
+            int largestChild;
+
+            for (; ; )
+            {
+                leftChild = 2 * i + 1;
+                rightChild = 2 * i + 2;
+                largestChild = i;
+
+                if (leftChild < heap.size() && heap.get(leftChild) > heap.get(largestChild))
+                {
+                    largestChild = leftChild;
+                }
+
+                if (rightChild < heap.size() && heap.get(rightChild) > heap.get(largestChild))
+                {
+                    largestChild = rightChild;
+                }
+
+                if (largestChild == i)
+                {
+                    break;
+                }
+
+                Collections.swap(heap, i, largestChild);
+                i = largestChild;
+            }
             return i;
         }
 
         int siftUp(int i) { //просеивание вниз
 
+            int parent = (i - 1) / 2;
+            while (heap.get(parent) < heap.get(i)) {
+                Collections.swap(heap, i, parent);
+                i = parent;
+            }
             return i;
         }
 
         void insert(Long value) { //вставка
+            heap.add(value);
+            siftUp(heap.size() - 1);
         }
 
         Long extractMax() { //извлечение и удаление максимума
-            Long result = null;
-
+            Long result = heap.get(0);
+            heap.remove(0);
+            siftDown(0);
             return result;
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
