@@ -50,15 +50,11 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         //ваше решение.
-        Arrays.sort(events, new Comparator<Event>(){
-            @Override
-            public int compare (Event e1, Event e2){return Integer.compare(e1.stop, e2.stop);}
-
-        });
-        for (int i = 0; i < events.length; i++){
-            if (events[i].start >= from){
-                result.add(events[i]);
-                from = events[i].stop;
+        Arrays.sort(events, Comparator.comparingInt(e -> e.stop));
+        for (Event event : events) {
+            if (event.start >= from) {
+                result.add(event);
+                from = event.stop;
             }
         }
 

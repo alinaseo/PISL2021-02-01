@@ -51,29 +51,18 @@ public class B_Sheduler {
         //ваше решение.
 
         Arrays.sort(events, (e1, e2) -> {
-            if(e1.start == e2.start)
-                return Integer.compare(e1.stop, e2.stop);
-            return Integer.compare(e1.start, e2.start);
+            if(e1.stop == e2.stop)
+                return Integer.compare(e1.start, e2.start);
+            return Integer.compare(e1.stop, e2.stop);
         });
-        int i = 0;
-        while(i < events.length && (events[i].start < from))
-            i++;
-        int minStop;
-        int cur = from;
-        do{
-            minStop = -1;
-            for (int j = i; j < events.length; j++) {
-                if(cur <= events[j].start && events[j].stop <= to && (minStop == -1 || events[j].stop < events[minStop].stop))
-                    minStop = j;
-            }
-            if(minStop != -1) {
-                result.add(events[minStop]);
-                i = minStop + 1;
-                cur = events[minStop].stop;
-            }
 
-        } while (minStop != -1);
-
+        int lastStop = from;
+        for(int i = 0; i < events.length && events[i].stop <= to; i++) {
+            if(events[i].start >= lastStop) {
+                result.add(events[i]);
+                lastStop = events[i].stop;
+            }
+        }
         return result;                        //вернем итог
     }
 }
