@@ -6,6 +6,12 @@ package by.it.group873601.demidovich.lesson01;
  * время расчета должно быть не более 2 секунд
  */
 
+import sun.plugin.javascript.navig.Array;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FiboC {
 
     private long startTime = System.currentTimeMillis();
@@ -16,8 +22,8 @@ public class FiboC {
 
     public static void main(String[] args) {
         FiboC fibo = new FiboC();
-        int n = 10;
-        int m = 2;
+        int n = 999999999;
+        int m = 321;
         System.out.printf("fasterC(%d)=%d \n\t time=%d \n\n", n, fibo.fasterC(n, m), fibo.time());
     }
 
@@ -25,47 +31,21 @@ public class FiboC {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
-        long pisanoPeriod = pisano(m);
+        List<Long> arr = new ArrayList<>();
+        arr.add((long)0);
+        arr.add((long)1);
 
-        n = n % pisanoPeriod;
-
-        long prev = 0;
-        long curr = 1;
-
-        if (n == 0)
-            return 0;
-        else if (n == 1)
-            return 1;
-
-        for(int i = 0; i < n - 1; i++)
-        {
-            long temp = 0;
-            temp = curr;
-            curr = (prev + curr) % m;
-            prev = temp;
+        for(int i=2;i<=m*m-1;i++){
+            arr.add((arr.get(i-1) + arr.get(i-2))%m);
         }
-        return curr % m;
+        int pisanoLength =0;
+        for(int i=0; i < arr.size()-1;i++){
+            if(arr.get(0) == arr.get(i) && arr.get(1) == arr.get(i+1) && i!=0)break;
+            pisanoLength++;
+        }
+        return arr.get((int)n%pisanoLength);
     }
 
-    public static long pisano(long m)
-    {
-        long prev = 0;
-        long curr = 1;
-        long res = 0;
-
-        for(int i = 0; i < m * m; i++)
-        {
-            long temp = 0;
-            temp = curr;
-            curr = (prev + curr) % m;
-            prev = temp;
-
-            if (prev == 0 && curr == 1)
-                res= i + 1;
-        }
-        System.out.println(res);
-        return res;
-    }
 
 
 }

@@ -127,7 +127,6 @@ public class A_Huffman {
             if(count.containsKey(strArr[i]))count.put(strArr[i], count.get(strArr[i]) + 1);
             else count.put(strArr[i],0);
         }
-        System.out.print(count);
 
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
@@ -141,21 +140,19 @@ public class A_Huffman {
         //построим дерево кодирования Хаффмана.
         //У родителя частоты детей складываются.
         while (priorityQueue.size() != 1) {
+            Node tempNode;
             Node node1 = priorityQueue.poll();
             Node node2 = priorityQueue.poll();
-            Node temp;
-            if (node1 instanceof LeafNode) temp = new InternalNode(node1, node2);
-            else  temp = new InternalNode(node2, node1);
-            priorityQueue.add(temp);
+            if (node1 instanceof LeafNode) tempNode = new InternalNode(node1, node2);
+            else  tempNode = new InternalNode(node2, node1);
+            priorityQueue.add(tempNode);
         }
 
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
         priorityQueue.peek().fillCodes("");
-        for (char c : strArr) {
-            sb.append(codes.get(c));
-        }
+        for (char c : strArr)sb.append(codes.get(c));
         //.....
 
         return sb.toString();

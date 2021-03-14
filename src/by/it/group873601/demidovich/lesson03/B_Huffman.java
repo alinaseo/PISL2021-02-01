@@ -57,7 +57,6 @@ public class B_Huffman {
             char c = scanner.next().charAt(0);
             map.put(scanner.next(),c);
         }
-        System.out.print(map);
 
         String value = scanner.next();
         String temp ="";
