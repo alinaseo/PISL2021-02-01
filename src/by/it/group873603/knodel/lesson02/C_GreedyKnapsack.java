@@ -72,7 +72,6 @@ public class C_GreedyKnapsack {
 
                 if (difference > 0) {
                     int unitCost = items[i + 1].cost / items[i + 1].weight;
-
                     result += difference * unitCost;
                     currentWeight += difference;
                 }
