@@ -119,20 +119,22 @@ public class A_Huffman {
         //все комментарии от тестового решения были оставлены т.к. это задание A.
         //если они вам мешают их можно удалить
 
+
+
+
+
         Map<Character, Integer> count = new HashMap<>();
         char[] strArr = s.toCharArray();
         for(int i =0; i< strArr.length; i++){
             if(count.containsKey(strArr[i]))count.put(strArr[i], count.get(strArr[i]) + 1);
             else count.put(strArr[i],0);
         }
-        System.out.print(count);
 
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
         for (Map.Entry<Character,Integer> entry: count.entrySet()) {
             priorityQueue.add(new LeafNode(entry.getValue(), entry.getKey()));
         }
-
 
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
@@ -158,9 +160,13 @@ public class A_Huffman {
         //01001100100111
         //01001100100111
     }
+
+
+
+
+
+
     //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
-
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
         File f = new File(root + "by/it/a_khmelev/lesson03/dataHuffman.txt");
