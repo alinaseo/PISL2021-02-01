@@ -14,6 +14,7 @@ package by.it.group873603.budilovich.lesson02;
  */
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class C_GreedyKnapsack {
@@ -68,7 +69,12 @@ public class C_GreedyKnapsack {
 
 
 
-
+        Arrays.sort(items);
+        for (int i = n - 1; i >= 0 && W > 0; i--) {
+            double minW = Math.min(items[i].weight, W);
+            W -= minW;
+            result += (double)items[i].cost * minW / items[i].weight;
+        }
 
         System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
         return result;
