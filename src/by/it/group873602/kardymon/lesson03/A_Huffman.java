@@ -151,6 +151,7 @@ public class A_Huffman {
             priorityQueue.add(parent);
         }
 
+
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
