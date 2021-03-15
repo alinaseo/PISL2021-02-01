@@ -47,29 +47,25 @@ public class B_Sheduler {
         //в период [from, int] (включительно).
         //оптимизация проводится по наибольшему числу непересекающихся событий.
         //начало и конец событий могут совпадать.
-        List<Event> result;
-        result = new ArrayList<>();
+        List<Event> result = new ArrayList<>();
         //ваше решение.
-        List<Event> sortedArray = Arrays.asList(events);
-        sortedArray.sort(Comparator.comparing(event -> event.start));
 
-        result.add(sortedArray.get(0));
+        for (int i = from; i < to; i++) {
+            final int startTime = i;
 
-
-        int i = 0;
-        while (i < sortedArray.size()){
-            if(sortedArray.get(i).start == result.get(result.size() - 1).start){
-                if(sortedArray.get(i).stop < result.get(result.size() - 1).stop) {
-                    result.remove(result.get(result.size() - 1));
-                    result.add(sortedArray.get(i));
-                    //i++;
+            Event event = Arrays.stream(events).filter(e -> e.start == startTime).min(new Comparator<Event>() {
+                @Override
+                public int compare(Event first, Event second) {
+                    return Integer.compare(first.stop, second.stop);
                 }
+            }).orElse(null);
+
+            if (event != null) {
+                result.add(event);
+                i = event.stop - 1;
             }
-            else if (sortedArray.get(i).start >= result.get(result.size() - 1).stop) {
-                result.add(sortedArray.get(i));
-            }
-            i++;
         }
+
         return result;                        //вернем итог
     }
 }

@@ -15,6 +15,7 @@ package by.it.group873601.karpeychik.lesson02;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class C_GreedyKnapsack {
@@ -37,8 +38,7 @@ public class C_GreedyKnapsack {
 
         @Override
         public int compareTo(Item o) {
-            //тут может быть ваш компаратор
-            return o.cost / o.weight - this.cost / this.weight;
+            return Double.compare((double)this.cost / (double)this.weight, (double)o.cost / (double)o.weight);
         }
     }
 
@@ -56,32 +56,26 @@ public class C_GreedyKnapsack {
         }
         System.out.printf("Всего предметов: %d. Рюкзак вмещает %d кг.\n",n,W);
 
-        //тут необходимо реализовать решение задачи
-        //итогом является максимально воможная стоимость вещей в рюкзаке
-        //вещи можно резать на кусочки (непрерывный рюкзак)
         double result = 0;
-        //тут реализуйте алгоритм сбора рюкзака
-        //будет особенно хорошо, если с собственной сортировкой
-        //кроме того, можете описать свой компаратор в классе Item
-        //ваше решение.
-        Arrays.sort(items);
-        int capacity = 0;
-        int i = 0;
-        while (i < items.length) {
-            if (W == capacity) {
-                return result;
-            } else if (W - capacity >= items[i].weight) {
-                capacity += items[i].weight;
-                result += items[i].weight * items[i].cost / items[i].weight;
-            } else {
-                result += (W - capacity) * items[i].cost / items[i].weight;
-                capacity += W - capacity;
+        int currentWeight = 0;
+
+        Arrays.sort(items, Comparator.reverseOrder());
+
+        for (int i = 0; i < n - 1 && currentWeight + items[i].weight <= W; i++) {
+            result += items[i].cost;
+            currentWeight += items[i].weight;
+
+            if (currentWeight + items[i + 1].weight > W) {
+                int difference = W - currentWeight;
+
+                if (difference > 0) {
+                    int unitCost = items[i + 1].cost / items[i + 1].weight;
+
+                    result += difference * unitCost;
+                    currentWeight += difference;
+                }
             }
-            i++;
         }
-
-
-
 
         System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
         return result;

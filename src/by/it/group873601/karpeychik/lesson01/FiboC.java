@@ -6,9 +6,6 @@ package by.it.group873601.karpeychik.lesson01;
  * время расчета должно быть не более 2 секунд
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FiboC {
 
     private long startTime = System.currentTimeMillis();
@@ -24,22 +21,46 @@ public class FiboC {
         System.out.printf("fasterC(%d)=%d \n\t time=%d \n\n", n, fibo.fasterC(n, m), fibo.time());
     }
 
-    long fasterC(long n, int m) {
-        //решение практически невозможно найти интуитивно
-        //вам потребуется дополнительный поиск информации
-        //см. период Пизано
-        List<Long> list = new ArrayList<>();
-        list.add(0L);
-        list.add(1L);
-        for (int i = 2; i < (m * 6); i++) {
-            list.add((list.get(i - 1) + list.get(i - 2)) % m);
-            if (list.get(i) == 1 && list.get(i - 1) == 0) {
-                list.remove(i);
-                list.remove(i-1);
-                break;
+    private long pisano(long m) {
+        long previous = 0;
+        long current = 1;
+        long result = 0;
+
+        for(int i = 0; i < m * m; i++) {
+            long temp = 0;
+            temp = current;
+            current = (previous + current) % m;
+            previous = temp;
+
+            if (previous == 0 && current == 1) {
+                result = i + 1;
             }
         }
-        return list.get((int)n%list.size());
+        return result;
+    }
+
+    long fasterC(long n, int m) {
+        long pisanoPeriod = pisano(m);
+
+        n = n % pisanoPeriod;
+
+        long previous = 0;
+        long current = 1;
+
+        if (n == 0) {
+            return 0;
+        }
+        else if (n == 1) {
+            return 1;
+        }
+
+        for(int i = 0; i < n - 1; i++) {
+            long temp = 0;
+            temp = current;
+            current = (previous + current) % m;
+            previous = temp;
+        }
+        return current % m;
     }
 
 
