@@ -160,7 +160,6 @@ public class A_Huffman {
                 sb.append(codes.get(symbol));
             }
         }
-        //.....
 
         return sb.toString();
         //01001100100111

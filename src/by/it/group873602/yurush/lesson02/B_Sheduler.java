@@ -1,9 +1,7 @@
 package by.it.group873602.yurush.lesson02;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 /*
 даны интервальные события events
@@ -59,7 +57,9 @@ public class B_Sheduler {
         });
 
         int i = 0;
-        while (events[i].start < from) i++;
+        while (events[i].start < from) {
+            i++;
+        }
         int d;
         while (i < events.length && events[i].stop <= to) {
             result.add(events[i]);
@@ -67,12 +67,10 @@ public class B_Sheduler {
             i++;
             while (events[i].start < d) {
                 i++;
-                if (i == events.length) break;
+                if (i == events.length)
+                    break;
             }
         }
-
-
-
 
         return result;                        //вернем итог
     }

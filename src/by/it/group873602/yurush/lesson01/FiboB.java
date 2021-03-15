@@ -1,7 +1,6 @@
 package by.it.group873602.yurush.lesson01;
 
 import java.math.BigInteger;
-import java.util.Scanner;
 
 /*
  * Вам необходимо выполнить способ вычисления чисел Фибоначчи с вспомогательным массивом
@@ -17,7 +16,6 @@ public class FiboB {
     }
 
     public static void main(String[] args) {
-
         //вычисление чисел простым быстрым методом
         FiboB fibo = new FiboB();
         int n = 55555;
