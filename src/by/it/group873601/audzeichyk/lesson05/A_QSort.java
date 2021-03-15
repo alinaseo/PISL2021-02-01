@@ -52,7 +52,10 @@ public class A_QSort {
         @Override
         public int compareTo(Object o) {
             //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+            if (this.start != ((Segment) o).start) {
+                return Integer.compare(this.start, ((Segment) o).start);
+            }
+            return Integer.compare(this.stop, ((Segment) o).stop);
         }
     }
 
@@ -81,11 +84,52 @@ public class A_QSort {
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
+        quickSort(segments, 0, segments.length - 1);
 
-
+        for (int i = 0; i < points.length; i++) {
+            for (Segment segment : segments) {
+                if (points[i] >= segment.start && points[i] <= segment.stop) {
+                    result[i]++;
+                } else if (points[i] < segment.start) {
+                    break;
+                }
+            }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
+    }
+
+    void quickSort(Segment[] a, int l0, int r0) {
+        if (l0 >= r0) {
+            return;
+        }
+        int m = (l0 + r0) / 2;
+        Segment mid = a[m];
+        int l = l0, r = r0;
+        Segment tmp;
+        while (l <= r) {
+            while (mid.compareTo(a[l]) > 0) {
+                l++;
+            }
+            while (mid.compareTo(a[r]) < 0) {
+                r--;
+            }
+            if (l > r) {
+                break;
+            }
+            tmp = a[l];
+            a[l] = a[r];
+            a[r] = tmp;
+            l++;
+            r--;
+        }
+        if (l < r0) {
+            quickSort(a, l, r0);
+        }
+        if (r > l0) {
+            quickSort(a, l0, r);
+        }
     }
 
 
