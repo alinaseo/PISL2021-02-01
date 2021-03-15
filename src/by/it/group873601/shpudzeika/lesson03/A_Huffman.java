@@ -1,4 +1,4 @@
-package by.it.group873601.mishaLevkov.lesson03;
+package by.it.group873601.shpudzeika.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -119,21 +119,23 @@ public class A_Huffman {
         //все комментарии от тестового решения были оставлены т.к. это задание A.
         //если они вам мешают их можно удалить
 
-
-
-
-
         Map<Character, Integer> count = new HashMap<>();
-        char[] strArr = s.toCharArray();
-        for(int i =0; i< strArr.length; i++){
-            if(count.containsKey(strArr[i]))count.put(strArr[i], count.get(strArr[i]) + 1);
-            else count.put(strArr[i],0);
+        //1. переберем все символы по очереди и рассчитаем их частоту в Map count
+        //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
+        char[] arr = s.toCharArray();
+        for (char c : arr) {
+            if (count.containsKey(c)) {
+                count.put(c, count.get(c) + 1);
+            } else {
+                count.put(c, 0);
+            }
         }
 
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
-        for (Map.Entry<Character,Integer> entry: count.entrySet()) {
-            priorityQueue.add(new LeafNode(entry.getValue(), entry.getKey()));
+        for (Map.Entry<Character, Integer> entry: count.entrySet()) {
+            Node node = new LeafNode(entry.getValue(), entry.getKey());
+            priorityQueue.add(node);
         }
 
         //3. вынимая по два узла из очереди (для сборки родителя)
@@ -141,32 +143,34 @@ public class A_Huffman {
         //построим дерево кодирования Хаффмана.
         //У родителя частоты детей складываются.
         while (priorityQueue.size() != 1) {
-            Node node1 = priorityQueue.poll();
-            Node node2 = priorityQueue.poll();
-            Node temp;
-            if (node1 instanceof LeafNode) temp = new InternalNode(node1, node2);
-            else  temp = new InternalNode(node2, node1);
-            priorityQueue.add(temp);
+            Node n1 = priorityQueue.poll();
+            Node n2 = priorityQueue.poll();
+            Node n;
+            if (n1 instanceof LeafNode) {
+                n = new InternalNode(n1, n2);
+            }
+            else {
+                n = new InternalNode(n2, n1);
+            }
+            priorityQueue.add(n);
         }
 
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
         priorityQueue.peek().fillCodes("");
-        for (char c : strArr) {
+        for (char c : arr) {
             sb.append(codes.get(c));
         }
+        //.....
+
         return sb.toString();
         //01001100100111
         //01001100100111
     }
-
-
-
-
-
-
     //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
+
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
         File f = new File(root + "by/it/a_khmelev/lesson03/dataHuffman.txt");

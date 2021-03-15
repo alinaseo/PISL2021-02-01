@@ -1,4 +1,4 @@
-package by.it.group873601.mishaLevkov.lesson03;
+package by.it.group873603.budilovich.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -119,23 +119,20 @@ public class A_Huffman {
         //все комментарии от тестового решения были оставлены т.к. это задание A.
         //если они вам мешают их можно удалить
 
-
-
-
-
         Map<Character, Integer> count = new HashMap<>();
-        char[] strArr = s.toCharArray();
-        for(int i =0; i< strArr.length; i++){
-            if(count.containsKey(strArr[i]))count.put(strArr[i], count.get(strArr[i]) + 1);
-            else count.put(strArr[i],0);
+        //1. переберем все символы по очереди и рассчитаем их частоту в Map count
+            //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
+        char[] strArray = s.toCharArray();
+        for(int i =0; i< strArray.length; i++){
+            if(count.containsKey(strArray[i]))count.put(strArray[i], count.get(strArray[i]) + 1);
+            else count.put(strArray[i],0);
         }
-
+        System.out.print(count);
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
         for (Map.Entry<Character,Integer> entry: count.entrySet()) {
             priorityQueue.add(new LeafNode(entry.getValue(), entry.getKey()));
         }
-
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
         //построим дерево кодирования Хаффмана.
@@ -148,25 +145,22 @@ public class A_Huffman {
             else  temp = new InternalNode(node2, node1);
             priorityQueue.add(temp);
         }
-
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
         priorityQueue.peek().fillCodes("");
-        for (char c : strArr) {
+        for (char c : strArray) {
             sb.append(codes.get(c));
         }
+        //.....
+
         return sb.toString();
         //01001100100111
         //01001100100111
     }
-
-
-
-
-
-
     //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
+
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
         File f = new File(root + "by/it/a_khmelev/lesson03/dataHuffman.txt");

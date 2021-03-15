@@ -1,4 +1,4 @@
-package by.it.group873601.mishaLevkov.lesson03;
+package by.it.group873603.budilovich.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,24 +54,19 @@ public class B_Huffman {
         //тут запишите ваше решение
 
 
-
-
         Map<String, Character> map = new TreeMap<>();
         for(int i =0;i < count; i++){
-            char c = scanner.next().charAt(0);
-            map.put(scanner.next(),c);
+            char C = scanner.next().charAt(0);
+            map.put(scanner.next(),C);
         }
+        System.out.print(map);
 
         String value = scanner.next();
-        String temp ="";
-        for (char c : value.toCharArray()) {
-            temp+=c;
-            if(map.containsKey(temp)){result.append(map.get(temp));temp="";}
+        String templ ="";
+        for (char C : value.toCharArray()) {
+            templ+= C;
+            if(map.containsKey(templ)){result.append(map.get(templ));templ="";}
         }
-
-
-
-
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         return result.toString(); //01001100100111
