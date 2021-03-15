@@ -3,6 +3,7 @@ package by.it.group873601.audzeichyk.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -35,6 +36,40 @@ Sample Output:
 
 public class C_GetInversions {
 
+    private static int mergeAndCount(int[] a, int l, int m, int r)
+    {
+        int[] left = Arrays.copyOfRange(a, l, m + 1);
+        int[] right = Arrays.copyOfRange(a, m + 1, r + 1);
+
+        int i = 0, j = 0, k = l, count = 0;
+
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j])
+                a[k++] = left[i++];
+            else {
+                a[k++] = right[j++];
+                count += (m + 1) - (l + i);
+            }
+        }
+        while (i < left.length)
+            a[k++] = left[i++];
+        while (j < right.length)
+            a[k++] = right[j++];
+        return count;
+    }
+
+    private static int countInversions(int[] arr, int l, int r)
+    {
+        int count = 0;
+        if (l < r) {
+            int m = (l + r) / 2;
+            count += countInversions(arr, l, m);
+            count += countInversions(arr, m + 1, r);
+            count += mergeAndCount(arr, l, m, r);
+        }
+        return count;
+    }
+
     int calc(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
@@ -49,13 +84,7 @@ public class C_GetInversions {
         int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
 
-
-
-
-
-
-
-
+        result = countInversions(a, 0, a.length - 1);
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
