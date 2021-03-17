@@ -79,6 +79,7 @@ public class C_GreedyKnapsack {
             }
             else {
                 result+=massBuf*(all.get(i).cost/all.get(i).weight);
+
                 break;
             }
         }

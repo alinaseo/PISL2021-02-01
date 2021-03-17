@@ -88,6 +88,7 @@ public class B_Sheduler {
             }else if(cheakTwo==1 && cheakFirst==1){
                 if (all.get(i).start == memory) {
                     bufer.add(all.get(i));
+
                 } else {
                     Collections.sort(bufer, new Comparator<Event>() {
                         @Override
