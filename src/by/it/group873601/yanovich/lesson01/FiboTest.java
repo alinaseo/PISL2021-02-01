@@ -22,7 +22,6 @@ public class FiboTest {
         FiboA fibo=new FiboA();
         BigInteger res=fibo.slowA(33);
         boolean ok=res.toString().equals("3524578");
-
         assertTrue("slowA failed", ok);
     }
 
