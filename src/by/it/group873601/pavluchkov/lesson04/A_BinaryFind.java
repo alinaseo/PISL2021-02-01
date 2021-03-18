@@ -48,7 +48,7 @@ public class A_BinaryFind {
             //тут реализуйте бинарный поиск индекса
             int left = 0;
             int right = n - 1;
-            int res = -100;
+            int res = -1;
             while (left <= right) {
                 int m = (left + right) / 2;
                 if (a[m] == value) {
@@ -60,7 +60,7 @@ public class A_BinaryFind {
                 else
                     left = m + 1;
             }
-            result[i]=0;
+            result[i]=res;
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
