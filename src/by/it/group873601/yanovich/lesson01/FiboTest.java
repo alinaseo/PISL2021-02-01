@@ -25,6 +25,7 @@ public class FiboTest {
         assertTrue("slowA failed", ok);
     }
 
+
     @Test(timeout = 2000)
     public void fastB() throws Exception {
         FiboB fibo=new FiboB();

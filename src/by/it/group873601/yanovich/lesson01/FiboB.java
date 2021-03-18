@@ -29,6 +29,7 @@ public class FiboB {
         Fa[0]= BigInteger.valueOf(0);
         Fa[1]= BigInteger.valueOf(1);
 
+
         for(Integer i=2;i<=n;i++)
         {
             Fa[i]=Fa[i-1].add(Fa[i-2]);
