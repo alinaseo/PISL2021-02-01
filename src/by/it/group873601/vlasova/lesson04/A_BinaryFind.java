@@ -3,6 +3,7 @@ package by.it.group873601.vlasova.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -39,6 +40,7 @@ public class A_BinaryFind {
         for (int i = 1; i <= n; i++) {
             a[i-1] = scanner.nextInt();
         }
+        Arrays.sort(a);
 
         //размер массива индексов
         int k = scanner.nextInt();

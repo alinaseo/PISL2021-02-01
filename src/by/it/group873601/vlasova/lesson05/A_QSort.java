@@ -38,7 +38,7 @@ import java.util.Scanner;
 public class A_QSort {
 
     //отрезок
-    private class Segment  implements Comparable{
+    private class Segment  implements Comparable<Segment>{
         int start;
         int stop;
 
@@ -50,9 +50,10 @@ public class A_QSort {
         }
 
         @Override
-        public int compareTo(Object o) {
-            //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+        public int compareTo(Segment o) {
+            if (this.start == o.start)
+                return Integer.compare(this.stop, o.stop);
+            return Integer.compare(this.start, o.start);
         }
     }
 
@@ -81,13 +82,41 @@ public class A_QSort {
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
+        qsort(segments, 0, n - 1);
 
+        for (int i = 0; i < m; i++) {
+            int j = 0;
+            while(j < segments.length && points[i] < segments[j].start)
+                j++;
+            while(j < segments.length && points[i] >= segments[j].start && points[i] <= segments[j].stop) {
+                j++;
+                result[i]++;
+            }
+        }
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
-
+    public void qsort(Segment[] segments, int b, int e) {
+        if(segments.length == 0 || b >= e)
+            return;
+        int m = (b + e) / 2;
+        int l = b, r = e;
+        while(l <= r) {
+            while(segments[l].compareTo(segments[m]) < 0) l++;
+            while(segments[r].compareTo(segments[m]) > 0) r--;
+            if(l <= r) {
+                Segment temp = segments[l];
+                segments[l++] = segments[r];
+                segments[r--] = temp;
+            }
+        }
+        if(b < r)
+            qsort(segments, b, r);
+        if(e > l)
+            qsort(segments, l, e);
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";

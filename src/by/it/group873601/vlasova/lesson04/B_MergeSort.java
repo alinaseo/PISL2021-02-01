@@ -3,6 +3,7 @@ package by.it.group873601.vlasova.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -21,37 +22,33 @@ Sample Output:
 */
 public class B_MergeSort {
 
-    int[] merge(int[] ar_1, int[] ar_2){
-        int max = ar_1.length + ar_2.length;
-        int[] result = new int[max];
-        int m = 0, n = 0;
-        for (int i = 0; i < max; i++){
-            if (m >= ar_1.length & n < ar_2.length){
-                result[i] = ar_2[n];
-                n++;
-            }else if(n >= ar_2.length & m < ar_1.length){
-                result[i] = ar_1[m];
-                m++;
-            }else if (ar_1[m] <= ar_2[n] & m < ar_1.length){
-                result[i] = ar_1[m];
-                m++;
-            }else {
-                result[i] = ar_2[n];
-                n++;
-            }
-        }
-        return result;
+    int[] mergeSort(int[] a) {
+        if (a.length < 2)
+            return a;
+
+        return merge(
+                mergeSort(Arrays.copyOfRange(a, 0, a.length / 2)),
+                mergeSort(Arrays.copyOfRange(a, a.length / 2, a.length)));
     }
 
-    int[] mergeSort(int[] arr, int l, int r){
-        int[] result = new int[1];
-        int index = (int)(l + r) / 2;
-        if (l < r){
-           return merge(mergeSort(arr, l, index), mergeSort(arr, index + 1, r));
-        }else {
-            result[0] = arr[l];
-            return result;
+    int [] merge(int [] left, int [] right) {
+
+        int[] result = new int[left.length + right.length];
+        int i = 0, j = 0, k = 0;
+
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j])
+                result[k++] = left[i++];
+            else
+                result[k++] = right[j++];
         }
+
+        while (i < left.length)
+            result[k++] = left[i++];
+        while (j < right.length)
+            result[k++] = right[j++];
+
+        return result;
     }
 
     int[] getMergeSort(InputStream stream) throws FileNotFoundException {
@@ -72,7 +69,7 @@ public class B_MergeSort {
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
 
-        a = mergeSort(a, 0, a.length - 1);
+        a = mergeSort(a);
 
 
 

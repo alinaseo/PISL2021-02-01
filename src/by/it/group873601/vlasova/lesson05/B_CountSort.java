@@ -3,6 +3,7 @@ package by.it.group873601.vlasova.lesson05;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -32,7 +33,7 @@ public class B_CountSort {
         }
         //тут реализуйте логику задачи с применением сортировки подсчетом
 
-
+        sort(points);
 
 
 
@@ -40,6 +41,24 @@ public class B_CountSort {
         return points;
     }
 
+    int[] sort(int[] array) {
+        int min = Arrays.stream(array).summaryStatistics().getMin();
+        int max = Arrays.stream(array).summaryStatistics().getMax();
+
+        int[] countIntegers = new int[max - min + 1];
+
+        for (int k : array) {
+            countIntegers[k - min]++;
+        }
+
+        int pos = 0;
+        for (int i = min; i <= max; i++) {
+            for (int j = 0; j < countIntegers[i - min]; j++) {
+                array[pos++] = i;
+            }
+        }
+        return array;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
