@@ -67,7 +67,6 @@ public class C_GreedyKnapsack {
         //кроме того, можете описать свой компаратор в классе Item
         //ваше решение.
 
-
         List<Item> all=Arrays.asList(items);
         Collections.sort(all);
         Collections.reverse(all);

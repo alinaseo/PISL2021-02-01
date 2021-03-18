@@ -39,7 +39,6 @@ public class A_VideoRegistrator {
         //за время до конца работы, увеличивая индекс
         Arrays.sort(events);
         double cheack=0;
-
         for (i=0;i<events.length;i++){
             if(cheack==0){
                 result.add(events[i]);

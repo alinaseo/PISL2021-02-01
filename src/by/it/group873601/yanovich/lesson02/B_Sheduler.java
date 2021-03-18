@@ -78,6 +78,7 @@ public class B_Sheduler {
                 }
             }
 
+
             //основная запись
             if(cheakTwo==0 && cheakFirst==1){
                 if(all.get(i).start>=result.get(result.size()-1).stop){
