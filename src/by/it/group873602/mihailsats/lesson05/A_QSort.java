@@ -38,7 +38,7 @@ import java.util.Scanner;
 public class A_QSort {
 
     //отрезок
-    private class Segment  implements Comparable{
+    private class Segment  implements Comparable<Segment>{
         int start;
         int stop;
 
@@ -49,13 +49,45 @@ public class A_QSort {
             //концы отрезков придут в обратном порядке
         }
 
+        public int getStart() {
+            return start;
+        }
+
         @Override
-        public int compareTo(Object o) {
+        public int compareTo(Segment o) {
             //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+            return Integer.compare(this.start, o.start);
         }
     }
 
+    void quickSort(Segment[] segments, int left, int right) {
+        if (segments.length == 0 || left >= right) {
+            return;
+        }
+        Segment x = segments[left + (right - left) / 2];
+        int i = left, j = right;
+        while (i <= j) {
+            while (segments[i].compareTo(x) < 0) {
+                i++;
+            }
+            while (segments[j].compareTo(x) > 0) {
+                j--;
+            }
+            if (i <= j) {
+                Segment temp = segments[i];
+                segments[i] = segments[j];
+                segments[j] = temp;
+                i++;
+                j--;
+            }
+        }
+
+        if (left < j)
+            quickSort(segments, left, j);
+
+        if (right > i)
+            quickSort(segments, i, right);
+    }
 
     int[] getAccessory(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -81,7 +113,16 @@ public class A_QSort {
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
+        quickSort(segments, 0, segments.length - 1);
 
+        //считаем совпадения
+        for (int i = 0; i < points.length; i++) {
+            for (Segment seg : segments) {
+                if (points[i] >= seg.start && points[i] <= seg.stop) {
+                    result[i]++;
+                }
+            }
+        }
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!

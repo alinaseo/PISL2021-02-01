@@ -35,6 +35,36 @@ Sample Output:
 
 public class C_GetInversions {
 
+    private int counterInv;
+
+    private int[] sort(int[] array, int left, int right) {
+        if (left > right - 1) {
+            return new int[]{array[left]};
+        }
+        int mid = left + (right - left) / 2;
+        return merge(sort(array, left, mid), sort(array, mid + 1, right));
+    }
+
+    int[] merge(int[] arrayL, int[] arrayR) {
+        int leftInd = 0, rightInd = 0, resInd = 0;
+        int[] result = new int[arrayL.length + arrayR.length];
+        while (leftInd < arrayL.length && rightInd < arrayR.length) {
+            if (arrayL[leftInd] <= arrayR[rightInd]) {
+                result[resInd++] = arrayL[leftInd++];
+            } else {
+                result[resInd++] = arrayR[rightInd++];
+                counterInv += (arrayL.length - leftInd);
+            }
+        }
+        while (leftInd < arrayL.length) {
+            result[resInd++] = arrayL[leftInd++];
+        }
+        while (rightInd < arrayR.length) {
+            result[resInd++] = arrayR[rightInd++];
+        }
+        return result;
+    }
+
     int calc(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
@@ -49,20 +79,16 @@ public class C_GetInversions {
         int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
 
-
-            for(int i = 0; i < a.length-1; i++) {
+        //Алгоритм в лоб время O(n^2)
+         /*   for(int i = 0; i < a.length-1; i++) {
                 for (int j = i + 1; j < a.length; j++) {
                     if (a[i] > a[j])
                         result++;
                 }
-            }
+            }*/
 
-
-
-
-
-
-
+        sort(a, 0, a.length - 1);
+        result = counterInv;
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
