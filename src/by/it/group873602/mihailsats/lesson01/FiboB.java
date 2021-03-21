@@ -24,7 +24,7 @@ public class FiboB {
     }
 
     BigInteger fastB(Integer n) {
-        if(n==0)
+        if (n == 0)
             return BigInteger.ZERO;
         if (n == 1)
             return BigInteger.ONE;
