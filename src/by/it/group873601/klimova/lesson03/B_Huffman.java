@@ -2,6 +2,8 @@ package by.it.group873601.klimova.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 // Lesson 3. B_Huffman.
@@ -51,7 +53,37 @@ public class B_Huffman {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение
 
+        Map<String, String> symbols = new HashMap<>();
+        String code = null;
 
+        while (scanner.hasNextLine()) {
+
+            String str = scanner.nextLine();
+            if (!str.contains(":")) {
+
+                code = str;
+            }
+            else {
+
+                String[] mas = str.split(":");
+                symbols.put(mas[0].trim(), mas[1].trim());
+            }
+        }
+
+        while (code.length() != 0){
+
+            for (Map.Entry<String,String> s : symbols.entrySet()){
+
+                String value = s.getValue();
+                if (code.startsWith(value)){
+
+                    code = code.substring(value.length());
+                    result.append(s.getKey());
+
+                    break;
+                }
+            }
+        }
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1

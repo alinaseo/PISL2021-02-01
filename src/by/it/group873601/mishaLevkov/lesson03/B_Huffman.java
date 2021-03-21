@@ -52,12 +52,15 @@ public class B_Huffman {
         Integer length = scanner.nextInt();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение
+
+
+
+
         Map<String, Character> map = new TreeMap<>();
         for(int i =0;i < count; i++){
             char c = scanner.next().charAt(0);
             map.put(scanner.next(),c);
         }
-        System.out.print(map);
 
         String value = scanner.next();
         String temp ="";
@@ -65,6 +68,11 @@ public class B_Huffman {
             temp+=c;
             if(map.containsKey(temp)){result.append(map.get(temp));temp="";}
         }
+
+
+
+
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         return result.toString(); //01001100100111
     }
