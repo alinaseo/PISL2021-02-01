@@ -81,13 +81,39 @@ public class A_QSort {
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
-
-
+        qSort(segments, 0, segments.length-1);
+        for(int i = 0; i<points.length; i++)
+            for (Segment segment : segments)
+                if (segment.start <= points[i] && points[i] <= segment.stop) result[i]++;
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
+    void qSort(Segment[] segments, int low, int high) {
+        if (low < high) {
+            int index = partition(segments, low, high);
+            qSort(segments, low, index - 1);
+            qSort(segments, index + 1, high);
+        }
+    }
+
+    int partition(Segment[] segments, int low, int high) {
+        Segment pivot = segments[low];
+        int index = low - 1;
+        for (int j = low; j < high; j++) {
+            if (segments[j].compareTo(pivot) <= 0) {
+                index++;
+                Segment buff = segments[index];
+                segments[index] = segments[j];
+                segments[j] = buff;
+            }
+        }
+        Segment buff = segments[index + 1];
+        segments[index + 1] = segments[high];
+        segments[high] = buff;
+        return index + 1;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";

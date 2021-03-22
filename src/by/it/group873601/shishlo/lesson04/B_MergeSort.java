@@ -74,9 +74,6 @@ public class B_MergeSort {
 
         a = mergeSort(a, 0, a.length - 1);
 
-
-
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
     }

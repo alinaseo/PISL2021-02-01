@@ -34,6 +34,39 @@ Sample Output:
 
 
 public class C_GetInversions {
+    int count = 0;
+    int[] merge(int[] left_arr, int[] right_arr) {
+        int left_len = left_arr.length;
+        int right_len = right_arr.length;
+        int i = 0, j = 0;   //i, j - счетчики в массивах
+        int len = left_len + right_len;
+        int[] result = new int[len];
+
+        for (int k = 0; k < len; k++) {
+            if (j == right_len || (i < left_arr.length && left_arr[i] <= right_arr[j])) {
+                result[k] = left_arr[i];
+                i++;
+            } else {
+                count += left_arr.length - i;
+                result[k] = right_arr[j];
+                j++;
+            }
+        }
+
+        return result;
+    }
+
+
+    int[] mergeSort(int[] arr, int l, int r) {
+        int[] result = new int[1];
+        int index = (l + r) / 2;
+        if (l < r) {
+            return merge(mergeSort(arr, l, index), mergeSort(arr, index + 1, r));
+        } else {
+            result[0] = arr[l];
+            return result;
+        }
+    }
 
     int calc(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -49,13 +82,8 @@ public class C_GetInversions {
         int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
 
-
-
-
-
-
-
-
+        int[] res = mergeSort(a, 0, a.length - 1);
+        result = count;
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
