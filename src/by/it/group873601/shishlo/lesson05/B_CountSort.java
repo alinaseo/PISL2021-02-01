@@ -27,7 +27,7 @@ public class B_CountSort {
         int[] points=new int[n];
 
         //читаем точки
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { 
             points[i]=scanner.nextInt();
         }
         //тут реализуйте логику задачи с применением сортировки подсчетом
