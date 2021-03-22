@@ -49,10 +49,6 @@ public class A_QSort {
             //концы отрезков придут в обратном порядке
         }
 
-        public int getStart() {
-            return start;
-        }
-
         @Override
         public int compareTo(Segment o) {
             //подумайте, что должен возвращать компаратор отрезков
