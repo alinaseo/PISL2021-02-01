@@ -40,7 +40,7 @@ public class C_GreedyKnapsack {
         @Override
         public int compareTo(Item o) {
             //тут может быть ваш компаратор
-            return Double.compare((double)this.cost / (double)this.weight, (double)o.cost / (double)o.weight);
+            return Double.compare((double) this.cost / (double) this.weight, (double) o.cost / (double) o.weight);
         }
     }
 
@@ -68,16 +68,14 @@ public class C_GreedyKnapsack {
         //ваше решение.
 
         Arrays.sort(items, Comparator.reverseOrder());
-        int i = 0;
-        while (W > 0 && i < items.length) {
-            if (W > items[i].weight) {
-                result += items[i].cost;
-                W -= items[i].weight;
+        for(Item item : items) {
+            if (W > item.weight) {
+                result += item.cost;
+                W -= item.weight;
             } else {
-                result += W * (double) items[i].cost / items[i].weight;
-                W = 0;
+                result +=  (double) item.cost * W  / item.weight;
+                break;
             }
-            i++;
         }
 
         System.out.printf("Удалось собрать рюкзак на сумму %f\n", result);
