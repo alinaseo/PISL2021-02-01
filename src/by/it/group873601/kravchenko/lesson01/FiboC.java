@@ -25,16 +25,23 @@ public class FiboC {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
+        int size = 6 * m;
+        long[] pisano = new long[size];
 
-        int size = 6 * m + 1;
-        long[] pe = new long[size];
-        pe[0] = 1;
-        pe[1] = 1;
+        pisano[0] = pisano[1] = 1;
+
+        if (m == 1)
+            return 0;
+
+        if (n <= 1)
+            return pisano[(int) n];
+
+        int ind;
         for (int i = 2; i < size; i++) {
-            pe[i] = (pe[i - 1] + pe[i - 2]) % m;
-            if (pe[i] == 1 && pe[i - 1] == 0) {
-                int ind = (int) (n % i) - 1;
-                return pe[ind];
+            pisano[i] = (pisano[i - 1] + pisano[i - 2]) % m;
+            if (pisano[i] == 1 && pisano[i - 1] == 0) {
+                ind = (int) (n % i) - 1;
+                return pisano[ind];
             }
         }
         return 0L;

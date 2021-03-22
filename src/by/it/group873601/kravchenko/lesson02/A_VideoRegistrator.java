@@ -39,7 +39,7 @@ public class A_VideoRegistrator {
         //и теперь пропустим все покрываемые события
         //за время до конца работы, увеличивая индекс
 
-        Arrays.sort(events);
+        Arrays.sort(events); //по возрастанию; сложность =  O(n * log n)
         while (i < events.length) {
             result.add(events[i]);
             double finish = events[i] + workDuration;
