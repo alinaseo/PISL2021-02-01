@@ -1,6 +1,7 @@
 package by.it.group873602.kardymon.lesson02;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /*
 даны события events
@@ -37,7 +38,13 @@ public class A_VideoRegistrator {
         //и теперь пропустим все покрываемые события
         //за время до конца работы, увеличивая индекс
 
-
+        Arrays.sort(events);
+        while (i < events.length) {
+            result.add(events[i]);
+            double finish = events[i] + workDuration;
+            while(i < events.length && (events[i] <= finish))
+                i++;
+        }
 
         return result;                        //вернем итог
     }

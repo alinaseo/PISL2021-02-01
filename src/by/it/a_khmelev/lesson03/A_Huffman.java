@@ -2,6 +2,7 @@ package by.it.a_khmelev.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 //Lesson 3. A_Huffman.
