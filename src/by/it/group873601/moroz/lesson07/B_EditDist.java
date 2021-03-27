@@ -46,6 +46,35 @@ public class B_EditDist {
 
 
         int result = 0;
+
+
+        int[][] results = new int[one.length() + 1][two.length() + 1];
+
+        for (int n = 0; n <= one.length(); n++) {
+            for (int m = 0; m <= two.length(); m++) {
+                if (n == 0 && m == 0) {
+                    results[n][m] = 0;
+                    continue;
+                }
+                if (n == 0) {
+                    results[n][m] = m;
+                    continue;
+                }
+                if (m == 0) {
+                    results[n][m] = n;
+                    continue;
+                }
+
+                int insert = results[n][m - 1] + 1;
+                int edit = results[n - 1][m] + 1;
+                int replace = results[n - 1][m - 1] + (one.charAt(n - 1) == two.charAt(m - 1) ? 0 : 1);
+
+                results[n][m] = Math.min(Math.min(insert, edit), replace);
+            }
+        }
+
+        result = results[one.length()][two.length()];
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
