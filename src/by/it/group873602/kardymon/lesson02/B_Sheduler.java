@@ -1,6 +1,7 @@
 package by.it.group873602.kardymon.lesson02;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /*
 даны интервальные события events
@@ -49,11 +50,19 @@ public class B_Sheduler {
         result = new ArrayList<>();
         //ваше решение.
 
+        Arrays.sort(events, (e1, e2) -> {
+            if(e1.stop == e2.stop)
+                return Integer.compare(e1.start, e2.start);
+            return Integer.compare(e1.stop, e2.stop);
+        });
 
-
-
-
-
+        int lastStop = from;
+        for(int i = 0; i < events.length && events[i].stop <= to; i++) {
+            if(events[i].start >= lastStop) {
+                result.add(events[i]);
+                lastStop = events[i].stop;
+            }
+        }
         return result;                        //вернем итог
     }
 }
