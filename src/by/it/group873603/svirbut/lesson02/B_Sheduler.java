@@ -56,8 +56,6 @@ public class B_Sheduler {
         });
 
         int i = 0;
-        while (i < events.length && (events[i].start < from))
-            i++;
 
         int min;
         int current = from;

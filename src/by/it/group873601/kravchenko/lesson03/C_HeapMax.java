@@ -83,7 +83,7 @@ public class C_HeapMax {
          то есть равна O(log2 N).*/
 
         int siftUp(int i) { //просеивание вниз
-            int parent = (i - 1) / 2;
+            int parent = (i - 1) / 2; //родитель нового элемента, окргуление в меньшую сторону
             while (heap.get(parent) < heap.get(i)) {
                 Collections.swap(heap, i, parent);
                 i = parent;
@@ -99,6 +99,7 @@ public class C_HeapMax {
         Long extractMax() { //извлечение и удаление максимума
             Long result = heap.get(0);
             heap.remove(0);
+            System.out.println(heap); //debug
             siftDown(0);
             return result;
         }
@@ -125,7 +126,8 @@ public class C_HeapMax {
                 if (p[0].equalsIgnoreCase("insert"))
                     heap.insert(Long.parseLong(p[1]));
                 i++;
-                //System.out.println(heap); //debug
+
+                System.out.println(heap.toString()); //debug
             }
         }
         return maxValue;
