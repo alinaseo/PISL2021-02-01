@@ -39,40 +39,55 @@ import java.util.Scanner;
 */
 
 public class A_EditDist {
-    private String string1;
-    private String string2;
-    private int[][] memoization;
 
-    int getDistanceEdinting(String one, String two) {
+    static int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        string1 = one;
-        string2 = two;
-        System.out.println("1 string: " + string1 + "\n2 string: " + string2);
-        memoization = new int[string1.length() + 1][string2.length() + 1];
 
-        for (int[] cell : memoization) {
-            Arrays.fill(cell, Integer.MAX_VALUE);
-        }
+        int result = 0;
 
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return editDistance(string1.length(), string2.length());
-    }
-
-    private int editDistance(int i, int j) {
-        if (memoization[i][j] == Integer.MAX_VALUE) { //если задача ещё не решена (нет данных в таблице)
-            if (i == 0)
-                memoization[i][j] = j;
-            else if (j == 0)
-                memoization[i][j] = i; //префикс длины i слова А выровнять с пустым префиксом строчки B
-            else {
-                int ins = editDistance(i, j - 1) + 1;
-                int del = editDistance(i - 1, j) + 1;
-                int sub = editDistance(i - 1, j - 1) + diff(string1.charAt(i - 1), string2.charAt(j - 1)); //diff(A[i], B[j])
-                memoization[i][j] = min(ins, del, sub);
+        int[][] distances = new int[one.length() + 1][two.length() + 1];
+        for (int i = 0; i < one.length() + 1; i++) {
+            for (int j = 0; j < two.length() + 1; j++) {
+                distances[i][j] = Integer.MAX_VALUE;
             }
         }
 
-        return memoization[i][j];
+        for (int i = 0; i < one.length() + 1; i++) {
+            for (int j = 0; j < two.length() + 1; j++) {
+                result = editDistTD(i, j, distances, one, two);
+            }
+        }
+
+        for (int i = 0; i < one.length() + 1; i++) {
+            for (int j = 0; j < two.length() + 1; j++) {
+                System.out.print(distances[i][j] + " ");
+
+            }
+            System.out.println();
+        }
+
+        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+        return result;
+    }
+
+
+    static int editDistTD(int i, int j, int[][] distances, String one, String two) {
+        if (distances[i][j] == Integer.MAX_VALUE) {
+            if (i == 0) {
+                distances[i][j] = j;
+            } else {
+                if (j == 0) {
+                    distances[i][j] = i;
+                } else {
+                    int insert = editDistTD(i, j - 1, distances, one, two) + 1;
+                    int delete = editDistTD(i - 1, j, distances, one, two) + 1;
+                    int replace = editDistTD(i - 1, j - 1, distances, one, two) + diff(one.charAt(i - 1), two.charAt(j - 1));
+
+                    distances[i][j] = min(insert, delete, replace);
+                }
+            }
+        }
+        return distances[i][j];
     }
 
     static int diff(char a, char b) {

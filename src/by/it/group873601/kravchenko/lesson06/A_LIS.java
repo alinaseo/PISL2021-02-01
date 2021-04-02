@@ -48,7 +48,7 @@ public class A_LIS {
         int result = 0;
 
         //алгоритм снизу вверх
-        int[] memoization = new int[n];
+        int[] memoization = new int[n]; //длина наиб возраст последовательности для i-того
         for (int i = 0; i < n; i++) {
             memoization[i] = 1;
             for (int j = 0; j <= i - 1; j++) {

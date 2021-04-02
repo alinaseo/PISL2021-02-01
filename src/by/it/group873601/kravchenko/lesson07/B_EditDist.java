@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import static by.it.group873601.kravchenko.lesson07.A_EditDist.*;
+
 /*
 Задача на программирование: расстояние Левенштейна
     https://ru.wikipedia.org/wiki/Расстояние_Левенштейна
@@ -38,45 +40,39 @@ import java.util.Scanner;
 */
 
 public class B_EditDist {
-    private static String string1;
-    private static String string2;
-    private static int[][] D;
-
-
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
-        string1 = one;
-        string2 = two;
-        System.out.println("First string: " + string1 + "; Second string: " + string2);
-        D = new int[string1.length() + 1][string2.length() + 1];
-        for (int i = 0; i <= string1.length(); i++) {
-            D[i][0] = i;
-        }
-        for (int j = 0; j <= string2.length(); j++) {
-            D[0][j] = j;
+        int[][] distances = new int[one.length() + 1][two.length() + 1];
+
+        for (int i = 0; i < one.length() + 1; i++) {
+            distances[i][0] = i;
         }
 
-        int result = calcDistance(string1.length() + 1, string2.length() + 1);
+        for (int j = 0; j < two.length() + 1; j++) {
+            distances[0][j] = j;
+        }
 
-        for (int i = 0; i <= string1.length(); i++) {
-            for (int j = 0; j <= string2.length(); j++) {
-                System.out.print(D[i][j] + " ");
+        for (int i = 0; i < one.length(); i++) {
+            for (int j = 0; j < two.length(); j++) {
+                int cost = diff(one.charAt(i), two.charAt(j));
+                distances[i + 1][j + 1] = min(
+                        distances[i][j + 1] + 1,
+                        distances[i + 1][j] + 1,
+                        distances[i][j] + cost);
+            }
+        }
+
+        for (int i = 0; i < one.length() + 1; i++) {
+            for (int j = 0; j < two.length() + 1; j++) {
+                System.out.print(distances[i][j] + " ");
             }
             System.out.println();
         }
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
-    }
 
-    static int calcDistance(int n, int m) {
-        for (int i = 1; i < n; i++) {
-            for (int j = 1; j < m; j++) {
-                int same = A_EditDist.diff(string1.charAt(i - 1), string2.charAt(j - 1));
-                D[i][j] = A_EditDist.min(D[i - 1][j] + 1, D[i][j - 1] + 1, D[i - 1][j - 1] + same);
-            }
-        }
-        return D[n - 1][m - 1];
+
+        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+        return distances[one.length()][two.length()];
     }
 
 
@@ -86,8 +82,11 @@ public class B_EditDist {
         B_EditDist instance = new B_EditDist();
         Scanner scanner = new Scanner(stream);
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println();
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println();
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println();
     }
 
 }

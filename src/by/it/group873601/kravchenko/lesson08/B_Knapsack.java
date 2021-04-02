@@ -44,7 +44,7 @@ public class B_Knapsack {
             for (int j = 1; j <= w; j++) {
                 dynamicArr[j][i] = dynamicArr[j][i - 1];
                 if (gold[i - 1] <= j) {
-                    dynamicArr[j][i] = Math.max(dynamicArr[j][i], dynamicArr[j - gold[i - 1]][i - 1] + gold[i - 1]);
+                    dynamicArr[j][i] = Math.max(dynamicArr[j][i], dynamicArr[j - gold[i - 1]][i - 1] + gold[i - 1]);//добавляем вес
                 }
             }
         }

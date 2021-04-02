@@ -42,15 +42,15 @@ public class A_Knapsack {
         Scanner scanner = new Scanner(stream);
         int w = scanner.nextInt();//15
         int n = scanner.nextInt();//3
-        int[] gold= new int[n]; //веса слитков
+        int[] gold = new int[n]; //веса слитков
         for (int i = 0; i < n; i++) {
             gold[i] = scanner.nextInt();
         }
 
         int[] dynamicArr = new int[w + 1];//15+1
-        for (int i = 1; i <= w; i++){
-            for (int j = 0; j < n; j++){
-                if (gold[j] <= i){
+        for (int i = 1; i <= w; i++) {
+            for (int j = 0; j < n; j++) {
+                if (gold[j] <= i) {
                     dynamicArr[i] = Math.max(dynamicArr[i], dynamicArr[i - gold[j]] + gold[j]);
                 }
             }
