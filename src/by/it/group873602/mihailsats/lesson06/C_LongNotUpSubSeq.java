@@ -3,7 +3,10 @@ package by.it.group873602.mihailsats.lesson06;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
+import java.util.Vector;
 
 /*
 Задача на программирование: наибольшая невозростающая подпоследовательность
@@ -50,7 +53,42 @@ public class C_LongNotUpSubSeq {
             m[i] = scanner.nextInt();
         }
         //тут реализуйте логику задачи методами динамического программирования (!!!)
-        int result = 0;
+        int[] d=new int[n];
+        int[] p = new int[n];
+        for(int i=0;i<n;i++){
+            d[i]=1;
+            p[i]=-1;
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if (m[j]>=m[i] && d[j]+1>d[i]) {
+                    d[i]=d[j]+1;
+                    p[i] = j;
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            System.out.print(d[i]+" ");
+        }
+        System.out.println();
+        int result = Arrays.stream(d).max().getAsInt();
+
+        int[] indexes = new int[result];
+        int k = 0;
+        for (int i = 1; i < n; i++)
+            if (d[i] > d[k]) {
+                k = i;
+            }
+        int j = k - 1;
+        while (k >= 0) {
+            indexes[j] = k + 1;
+            j--;
+            k = p[k];
+        }
+        for(int i=0;i<indexes.length;i++)
+            System.out.print(indexes[i]+" ");
+        System.out.println();
+
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
