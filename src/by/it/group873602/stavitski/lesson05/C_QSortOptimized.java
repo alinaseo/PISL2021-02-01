@@ -44,14 +44,13 @@ public class C_QSortOptimized {
 
         @Override
         public int compareTo(Object o) {
-            Segment segment = (Segment) o;
-            if (this.start == segment.start)
-                return Integer.compare(this.stop, segment.stop);
-            return Integer.compare(this.start, segment.start);
+            if (o instanceof Integer) {
+                return Integer.compare(this.start, (int) o);
+            }
+            return -1;
         }
     }
-
-
+    
     int[] getAccessory2(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
@@ -76,92 +75,113 @@ public class C_QSortOptimized {
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
-        quicksort(segments, 0, n - 1);
+        sort(segments, 0, segments.length - 1);
 
-        for (int i = 0; i < m; i++) {
-            int l = 0;
-            int r = n - 1;
-            int res1 = 0;
-            int res2 = 0;
-            while (l <= r) {
-                int mid = (l + r) / 2;
-                while(mid + res1 <= r && segments[mid + res1].start <= points[i] && points[i] <= segments[mid + res1].stop) {
-                    res1++;
-                }
-                while(mid - res2 - 1 >= l && segments[mid - res2  - 1].start <= points[i] && points[i] <= segments[mid - res2  - 1].stop) {
-                    res2++;
-                }
-                if(res1 + res2 != 0)
-                    break;
-                if(segments[mid].start >= points[i])
-                    r = mid - 1;
-                else
-                    l = mid + 1;
-            }
-            result[i] = res1 + res2;
+        for (int i = 0; i < points.length; i++) {
+            int count = count(segments, points[i], segments.length);
+            result[i] = count == -1 ? 0 : count;
         }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
-    void quicksort(Segment[] segments, int b, int e) {
-        while (b < e) {
-            int[] lr = partition(segments, b, e);
+    void sort(Segment[] input, int left, int right) {
+        if (right > left) {
+            return;
+        }
 
-            if (lr[1] - b < e - lr[0]) {
-                quicksort(segments, b, lr[1]);
-                b = lr[0];
-            } else {
-                quicksort(segments, lr[0], e);
-                e = lr[1];
+        if (input[left].compareTo(input[right]) > 0) {
+            swap(input, left, right);
+        }
+
+        Segment p = input[left];
+        Segment q = input[right];
+
+        int lt = left + 1;
+        int gt = right - 1;
+        int k = lt;
+
+        while (k <= gt) {
+            if (input[k].compareTo(p) < 0) {
+                swap(input, k, lt++);
+            }
+            else if (input[k].compareTo(q) >= 0) {
+                while (input[gt].compareTo(q) > 0 && k < gt) {
+                    --gt;
+                }
+                swap(input, k, gt--);
+
+                if (input[k].compareTo(p) < 0) {
+                    swap(input, k, lt++);
+                }
+            }
+            ++k;
+        }
+        lt--;
+        gt++;
+
+        swap(input, left, lt);
+        swap(input, right, gt);
+
+        sort(input, left, --lt);
+        sort(input, ++lt, --gt);
+        sort(input, ++gt, right);
+    }
+
+    private void swap(Segment[] input, int i, int j) {
+        Segment temp = input[i];
+        input[i] = input[j];
+        input[j] = temp;
+    }
+
+    int count(Segment[] input, int value, int length) {
+        int i = 0;
+        int j = 0;
+
+        i = first(input, 0, length - 1, value, length);
+
+        if(i == -1) {
+            return i;
+        }
+
+        j = last(input, i, length - 1, value, length);
+
+        return j - i + 1;
+    }
+
+    int first(Segment[] input, int low, int high, int value, int length) {
+        if(high >= low) {
+            int mid = (low + high) % 2 == 0 ? (low + high) / 2 : ((low + high) / 2) + 1;
+
+            if((mid == 0 || value > input[mid - 1].start && value > input[mid - 1].stop) && (value >= input[mid].start && value <= input[mid].stop)) {
+                return mid;
+            }
+            else if(value > input[mid].start && value > input[mid].stop) {
+                return first(input, (mid + 1), high, value, length);
+            }
+            else {
+                return first(input, low, (mid - 1), value, length);
             }
         }
+        return -1;
     }
 
-    int[] partition(Segment segments[], int b, int e) {
-        int l = b - 1;
-        int r = e;
-        int p = b - 1;
-        int q = e;
+    int last(Segment[] input, int low, int high, int value, int length) {
+        if(high >= low) {
+            int mid = (low + high) % 2 == 0 ? (low + high) / 2 : ((low + high) / 2) + 1;
 
-        Segment v = segments[e];
-
-        while (true) {
-            while (segments[++l].compareTo(v) < 0);
-            while (segments[--r].compareTo(v) > 0)
-                if (r == b)
-                    break;
-            if (l >= r)
-                break;
-
-            swap(segments, l, r);
-
-            if (segments[l].compareTo(v) == 0)
-                swap(segments, l, ++p);
-
-            if (segments[r].compareTo(v) == 0)
-                swap(segments, --q, r);
+            if((mid == length - 1 || value < input[mid + 1].start && value < input[mid + 1].stop) && (value >= input[mid].start && value <= input[mid].stop)) {
+                return mid;
+            }
+            else if(value < input[mid].start && value < input[mid].stop) {
+                return last(input, low, (mid - 1), value, length);
+            }
+            else {
+                return last(input, (mid + 1), high, value, length);
+            }
         }
-
-        swap(segments, l, e);
-
-        r = l - 1;
-        for (int k = b; k <= p; k++, r--)
-            swap(segments, k, r);
-
-
-        l = l + 1;
-        for (int k = e - 1; k >= q; k--, l++)
-            swap(segments, l, k);
-
-        return new int[]{l, r};
-    }
-
-    void swap(Segment[] arr, int i, int j) {
-        Segment t = arr[i];
-        arr[i] = arr[j];
-        arr[j] = t;
+        return -1;
     }
 
 
