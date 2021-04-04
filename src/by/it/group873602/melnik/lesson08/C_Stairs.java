@@ -33,6 +33,7 @@ Sample Output 3:
 */
 
 
+
 public class C_Stairs {
 
     int getMaxSum(InputStream stream ) {

@@ -24,6 +24,7 @@ import java.util.Scanner;
 */
 
 
+
 public class A_BinaryFind {
     int[] findIndex(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
