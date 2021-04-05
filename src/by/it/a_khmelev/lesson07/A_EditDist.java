@@ -39,28 +39,13 @@ import java.util.Scanner;
 
 public class A_EditDist {
 
-    int editingDistance(int n, int m, String one, String two) {
-        if (n == 0) {
-            return m;
-        }
-        if (m == 0) {
-            return n;
-        }
-
-        int insert = editingDistance(n, m - 1, one, two) + 1;
-        int delete = editingDistance(n - 1, m, one, two) + 1;
-        int replace = editingDistance(n - 1, m - 1, one, two) + (one.charAt(n - 1) == two.charAt(m - 1) ? 0 : 1);
-
-        int result = Math.min(Math.min(insert, delete), replace);
-
-        return result;
-    }
 
     int getDistanceEdinting(String one, String two) {
+        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
+
         int result = 0;
-
-        result = editingDistance(one.length(), two.length(), one, two);
-
+        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
@@ -75,4 +60,3 @@ public class A_EditDist {
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
     }
 }
-

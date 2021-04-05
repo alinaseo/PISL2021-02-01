@@ -1,4 +1,4 @@
-package by.it.a_khmelev.lesson08;
+package by.it.group873603.knodel.lesson08;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -46,8 +46,19 @@ public class A_Knapsack {
             gold[i]=scanner.nextInt();
         }
 
-
         int result = 0;
+
+        int[] m = new int[w + 1];
+
+        for(int i = 0; i <= w; i++){
+            for(int j = 0; j < n; j++){
+                if(gold[j] <= i){
+                    m[i] = Math.max(m[i], m[i - gold[j]] + gold[j]);
+                }
+            }
+        }
+        result = m[w];
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
@@ -61,3 +72,4 @@ public class A_Knapsack {
         System.out.println(res);
     }
 }
+
