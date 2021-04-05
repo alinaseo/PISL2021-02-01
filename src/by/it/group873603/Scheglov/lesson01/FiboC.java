@@ -24,20 +24,19 @@ public class FiboC {
     }
 
     long fasterC(long n, int m) {
-        ArrayList<Long> arr=new ArrayList<Long>();
-        arr.add((long) 0);
-        arr.add((long) 1);
-        int k=0;
-        for(int i=2;i<6*m+2;i++){
-            arr.add((arr.get(i - 1)+(arr.get(i - 2)))%m);
-            k++;
-            if(arr.get(i)==1 && arr.get(i-1)==0)
-                break;
+        int size = 6 * m + 1;
+        long [] pisano = new long[size];
+        pisano[0] = 1;
+        pisano[1] = 1;
+        for (int i = 2; i < size; i++)
+        {
+            pisano[i] = ((pisano[i-1] + pisano[i -2]) % m);
+            if (pisano[i] == 1 && pisano[i-1] == 0) {
+                int index = (int) (n % i) - 1;
+                return pisano[index];
+            }
         }
-        return arr.get((int) (n%k));
-        //решение практически невозможно найти интуитивно
-        //вам потребуется дополнительный поиск информации
-        //см. период Пизано
+        return 0L;
     }
 
 
