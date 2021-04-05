@@ -3,6 +3,7 @@ package by.it.group873602.musiyachyna.lesson05;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -32,8 +33,21 @@ public class B_CountSort {
         }
         //тут реализуйте логику задачи с применением сортировки подсчетом
 
+        int min = Arrays.stream(points).min().getAsInt();
+        int max = Arrays.stream(points).max().getAsInt();
 
+        int[] countIntegers = new int[max - min + 1];
 
+        for (int point : points) {
+            countIntegers[point - min]++;
+        }
+
+        int insertPosition = 0;
+        for (int i = min; i <= max; i++) {
+            for (int j = 0; j < countIntegers[i - min]; j++) {
+                points[insertPosition++] = i;
+            }
+        }
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!

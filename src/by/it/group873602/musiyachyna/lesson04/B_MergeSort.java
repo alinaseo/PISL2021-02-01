@@ -21,21 +21,21 @@ Sample Output:
 */
 public class B_MergeSort {
 
-    int[] merge(int[] ar_1, int[] ar_2){
+    int[] merge(int[] ar_1, int[] ar_2) {
         int max = ar_1.length + ar_2.length;
         int[] result = new int[max];
         int m = 0, n = 0;
-        for (int i = 0; i < max; i++){
-            if (m >= ar_1.length & n < ar_2.length){
+        for (int i = 0; i < max; i++) {
+            if (m >= ar_1.length & n < ar_2.length) {
                 result[i] = ar_2[n];
                 n++;
-            }else if(n >= ar_2.length & m < ar_1.length){
+            } else if (n >= ar_2.length & m < ar_1.length) {
                 result[i] = ar_1[m];
                 m++;
-            }else if (ar_1[m] <= ar_2[n] & m < ar_1.length){
+            } else if (ar_1[m] <= ar_2[n]) {
                 result[i] = ar_1[m];
                 m++;
-            }else {
+            } else {
                 result[i] = ar_2[n];
                 n++;
             }
@@ -43,12 +43,12 @@ public class B_MergeSort {
         return result;
     }
 
-    int[] mergeSort(int[] arr, int l, int r){
+    int[] mergeSort(int[] arr, int l, int r) {
         int[] result = new int[1];
-        int index = (int)(l + r) / 2;
-        if (l < r){
-           return merge(mergeSort(arr, l, index), mergeSort(arr, index + 1, r));
-        }else {
+        int index = (l + r) / 2;
+        if (l < r) {
+            return merge(mergeSort(arr, l, index), mergeSort(arr, index + 1, r));
+        } else {
             result[0] = arr[l];
             return result;
         }
@@ -62,7 +62,7 @@ public class B_MergeSort {
         //размер массива
         int n = scanner.nextInt();
         //сам массива
-        int[] a=new int[n];
+        int[] a = new int[n];
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
             System.out.println(a[i]);
@@ -75,20 +75,19 @@ public class B_MergeSort {
         a = mergeSort(a, 0, a.length - 1);
 
 
-
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
     }
+
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
         InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson04/dataB.txt");
         B_MergeSort instance = new B_MergeSort();
         //long startTime = System.currentTimeMillis();
-        int[] result=instance.getMergeSort(stream);
+        int[] result = instance.getMergeSort(stream);
         //long finishTime = System.currentTimeMillis();
-        for (int index:result){
-            System.out.print(index+" ");
+        for (int index : result) {
+            System.out.print(index + " ");
         }
     }
 

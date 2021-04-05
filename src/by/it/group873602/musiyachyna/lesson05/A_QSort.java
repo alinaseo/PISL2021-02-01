@@ -38,21 +38,28 @@ import java.util.Scanner;
 public class A_QSort {
 
     //отрезок
-    private class Segment  implements Comparable{
+    private class Segment  implements Comparable<Segment>{
         int start;
         int stop;
 
         Segment(int start, int stop){
-            this.start = start;
-            this.stop = stop;
+            if (start <= stop) {
+                this.start = start;
+                this.stop = stop;
+            } else {
+                this.start = stop;
+                this.stop = start;
+            }
             //тут вообще-то лучше доделать конструктор на случай если
             //концы отрезков придут в обратном порядке
         }
 
         @Override
-        public int compareTo(Object o) {
+        public int compareTo(Segment o) {
             //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+            if (this.start == o.start)
+                return Integer.compare(this.stop, o.stop);
+            return Integer.compare(this.start, o.start);
         }
     }
 
@@ -82,12 +89,44 @@ public class A_QSort {
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
 
-
+        quickSort(segments, 0, segments.length);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++){
+                if (points[i] >= segments[j].start && points[i] <= segments[j].stop){
+                    result[i]++;
+                }
+            }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
+    public static void quickSort(Segment[] array, int left, int right){
+        if (left >= right)
+            return;
+
+        // разбиение
+        Segment segmentLeft = array[left];
+        int j = left;
+        for (int i = left + 1; i < right; i++){
+            if (array[i].compareTo(segmentLeft) < 0){
+                j++;
+
+                Segment tmp = array[j];
+                array[j] = array[i];
+                array[i] = tmp;
+            }
+        }
+        Segment tmp = array[left];
+        array[left] = array[j];
+        array[j] = tmp;
+
+        int basic = j;
+
+        quickSort(array, left, basic - 1);
+        quickSort(array, basic + 1, right);
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
