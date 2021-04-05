@@ -47,6 +47,18 @@ public class A_LIS {
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
 
+        int[] memo = new int[n];
+        for (int i = 0; i < n; i++) {
+            memo[i] = 1;
+            for (int j = 0; j <= i - 1; j++) {
+                if (m[j] < m[i] && (memo[j] + 1) > memo[i]) {
+                    memo[i] = memo[j] + 1;
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            result = Math.max(result, memo[i]);
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
