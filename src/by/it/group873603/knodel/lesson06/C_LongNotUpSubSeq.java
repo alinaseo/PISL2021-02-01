@@ -1,8 +1,9 @@
-package by.it.a_khmelev.lesson06;
+package by.it.group873603.knodel.lesson06;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -51,6 +52,40 @@ public class C_LongNotUpSubSeq {
         }
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
+
+
+        int[] memo = new int[n];
+        int[] prev = new int[n];
+        for (int i = 0; i < n; i++) {
+            memo[i] = 1;
+            prev[i] = -1;
+
+            for (int j = 0; j <= i - 1; j++) {
+                if (m[j] >= m[i] && (memo[j] + 1) > memo[i]) {
+                    memo[i] = memo[j] + 1;
+                    prev[i] = j;
+                }
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            result = Math.max(result, memo[i]);
+        }
+
+        int[] indexResults = new int[result];
+
+        int resIndex = 0;
+        for (int i = 1; i < n; i++)
+            if (memo[i] > memo[resIndex])
+                resIndex = i;
+
+        int j = resIndex - 1;
+        while (resIndex >= 0) {
+            indexResults[j] = resIndex + 1;
+            j--;
+            resIndex = prev[resIndex];
+        }
+        System.out.println(Arrays.toString(indexResults));
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
