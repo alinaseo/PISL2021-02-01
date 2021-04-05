@@ -65,7 +65,8 @@ public class B_Huffman {
             temp+=c;
             if (map.containsKey(temp)){
                 result.append(map.get(temp));
-                temp="";}
+                temp="";
+            }
         }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
