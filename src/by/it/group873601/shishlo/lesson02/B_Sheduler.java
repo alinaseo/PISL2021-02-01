@@ -50,14 +50,10 @@ public class B_Sheduler {
         result = new ArrayList<>();
         //ваше решение.
 
-        Arrays.sort(events, (a, b) -> {
-            if (a.start == b.start && a.stop == b.stop) return 0;
-            else if (a.start < b.start) return -1;
-            else if (a.start == b.start) {
-                if (a.stop < b.stop) return -1;
-                else return 1;
-            }
-            else return 1;
+        Arrays.sort(events, (event1, event2) -> {
+            if (event1.start == event2.start)
+                return Integer.compare(event1.stop, event2.stop);
+            return Integer.compare(event1.start, event2.start);
         });
 
         int i = 0;
