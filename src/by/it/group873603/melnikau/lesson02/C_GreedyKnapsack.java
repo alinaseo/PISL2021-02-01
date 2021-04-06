@@ -38,9 +38,8 @@ public class C_GreedyKnapsack {
         @Override
         public int compareTo(Item o) {
             //тут может быть ваш компаратор
+            return Double.compare((double)this.cost / (double)this.weight, (double)o.cost / (double)o.weight);
 
-
-            return 0;
         }
     }
 
@@ -67,7 +66,12 @@ public class C_GreedyKnapsack {
         //кроме того, можете описать свой компаратор в классе Item
         //ваше решение.
 
-
+        Arrays.sort(items);
+        for (int i = n - 1; i >= 0 && W > 0; i--) {
+            double res = Math.min(items[i].weight, W);
+            W -= res;
+            result += (double)items[i].cost * res / items[i].weight;
+        }
 
         System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
         return result;
