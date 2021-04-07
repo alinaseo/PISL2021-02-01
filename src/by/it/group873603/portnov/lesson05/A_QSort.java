@@ -42,7 +42,7 @@ public class A_QSort {
         int start;
         int stop;
 
-        Segment(int start, int stop){
+        Segment(int start, int stop) {
             this.start = start;
             this.stop = stop;
             if (start > stop) {
@@ -126,10 +126,10 @@ public class A_QSort {
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group873603/portnov/lesson05/dataA.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group873603/portnov/dataA.txt");
         A_QSort instance = new A_QSort();
         int[] result = instance.getAccessory(stream);
-        for (int index : result){
+        for (int index : result) {
             System.out.print(index + " ");
         }
     }

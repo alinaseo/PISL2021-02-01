@@ -34,14 +34,14 @@ public class A_BinaryFind {
         //размер отсортированного массива
         int n = scanner.nextInt();
         //сам отсортированный массива
-        int[] a=new int[n];
+        int[] a = new int[n];
         for (int i = 1; i <= n; i++) {
-            a[i-1] = scanner.nextInt();
+            a[i - 1] = scanner.nextInt();
         }
 
         //размер массива индексов
         int k = scanner.nextInt();
-        int[] result=new int[k];
+        int[] result = new int[k];
         for (int i = 0; i < k; i++) {
             int value = scanner.nextInt();
             int searchIndex = -1;
@@ -54,16 +54,14 @@ public class A_BinaryFind {
                 if (value == a[middle]) {
                     searchIndex = middle + 1;
                     break;
-                }
-                else if (value < a[middle]) {
+                } else if (value < a[middle]) {
                     end = middle - 1;
-                }
-                else {
+                } else {
                     start = middle + 1;
                 }
             }
 
-            result[i]=searchIndex;
+            result[i] = searchIndex;
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
@@ -75,10 +73,10 @@ public class A_BinaryFind {
         InputStream stream = new FileInputStream(root + "by/it/group873603/portnov/lesson04/dataA.txt");
         A_BinaryFind instance = new A_BinaryFind();
         //long startTime = System.currentTimeMillis();
-        int[] result=instance.findIndex(stream);
+        int[] result = instance.findIndex(stream);
         //long finishTime = System.currentTimeMillis();
-        for (int index:result){
-            System.out.print(index+" ");
+        for (int index : result) {
+            System.out.print(index + " ");
         }
     }
 
