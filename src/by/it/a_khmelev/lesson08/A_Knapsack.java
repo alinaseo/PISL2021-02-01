@@ -61,4 +61,3 @@ public class A_Knapsack {
         System.out.println(res);
     }
 }
-

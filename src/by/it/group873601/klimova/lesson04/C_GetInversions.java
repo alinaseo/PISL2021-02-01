@@ -66,7 +66,7 @@ public class C_GetInversions {
             return 0;
 
         int m = (arr.length + 1) / 2;
-        int left[] = Arrays.copyOfRange(arr, 0, m);
+        int left[] = Arrays.copyOfRange(arr, 0, m); /*частичное копирование*/
 
         int right[] = Arrays.copyOfRange(arr, m, arr.length);
 

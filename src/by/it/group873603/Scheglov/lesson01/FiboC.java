@@ -6,6 +6,8 @@ package by.it.group873603.Scheglov.lesson01;
  * время расчета должно быть не более 2 секунд
  */
 
+import java.util.ArrayList;
+
 public class FiboC {
 
     private long startTime = System.currentTimeMillis();
@@ -22,9 +24,18 @@ public class FiboC {
     }
 
     long fasterC(long n, int m) {
-        //решение практически невозможно найти интуитивно
-        //вам потребуется дополнительный поиск информации
-        //см. период Пизано
+        int size = 6 * m + 1;
+        long [] pisano = new long[size];
+        pisano[0] = 1;
+        pisano[1] = 1;
+        for (int i = 2; i < size; i++)
+        {
+            pisano[i] = ((pisano[i-1] + pisano[i -2]) % m);
+            if (pisano[i] == 1 && pisano[i-1] == 0) {
+                int index = (int) (n % i) - 1;
+                return pisano[index];
+            }
+        }
         return 0L;
     }
 
