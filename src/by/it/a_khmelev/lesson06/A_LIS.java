@@ -61,4 +61,3 @@ public class A_LIS {
         System.out.print(result);
     }
 }
-
