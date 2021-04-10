@@ -43,14 +43,34 @@ public class B_EditDist {
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
+        int[][] distances = new int[one.length() + 1][two.length() + 1];
 
+        for(int i = 0; i < one.length() + 1; i++){
+            distances[i][0] = i;
+        }
 
-        int result = 0;
+        for(int j = 0; j < two.length() + 1; j++){
+            distances[0][j] = j;
+        }
+
+        for(int i = 0; i < one.length(); i++){
+            for(int j = 0; j < two.length(); j++){
+                int cost = getDiff(one.charAt(i),two.charAt(j));
+                distances[i + 1][j + 1] = Math.min(
+                        distances[i][j + 1] + 1,Math.min(
+                        distances[i + 1][j] + 1,
+                        distances[i][j] + cost));
+            }
+        }
+
+        int result = distances[one.length()][two.length()];
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
-
+    int getDiff(char one, char two) {
+        return one != two ? 1 : 0;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
