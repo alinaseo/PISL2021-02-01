@@ -55,7 +55,6 @@ public class A_Knapsack {
                     d[c] = f;
             }
         }
-
         result = d[w];
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
