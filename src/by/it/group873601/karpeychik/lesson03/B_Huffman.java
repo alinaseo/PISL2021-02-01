@@ -1,7 +1,8 @@
 package by.it.group873601.karpeychik.lesson03;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 // Lesson 3. B_Huffman.
@@ -51,8 +52,24 @@ public class B_Huffman {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение
 
+        Map<Character, String> codes = new HashMap<>();
 
+        for(int i = 0; i < count; i++) {
+            Character symbol = scanner.next().charAt(0);
+            String code = scanner.next();
+            codes.put(symbol, code);
+        }
 
+        String encoded = scanner.next();
+        while(encoded.length() > 0) {
+            for (Map.Entry<Character, String> entry : codes.entrySet()) {
+                if (encoded.startsWith(entry.getValue())) {
+                    result.append(entry.getKey());
+                    encoded = encoded.substring(entry.getValue().length());
+                    break;
+                }
+            }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         return result.toString(); //01001100100111
