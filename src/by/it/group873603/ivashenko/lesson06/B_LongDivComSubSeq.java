@@ -44,7 +44,19 @@ public class B_LongDivComSubSeq {
         }
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
+        int[] memories=new int[n];
 
+        for (int i=0;i<n;i++){
+            memories[i]=1;
+            for (int j=0;j<=i-1;j++){
+                if(m[i]%m[j]==0 && (memories[j]+1)>memories[i]){
+                    memories[i]=memories[j]+1;
+                }
+            }
+        }
+
+        for(int i=0;i<n;i++)
+            result=Math.max(result,memories[i]);
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;

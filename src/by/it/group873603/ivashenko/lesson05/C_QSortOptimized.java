@@ -64,12 +64,6 @@ public class C_QSortOptimized {
         int lt = left + 1;
         int gt = right - 1;
         int k = lt;
-
-
-
-
-
-
         while (k <= gt) {
             if (input[k].compareTo(segment) < 0) {
                 swapsort(input, k, lt++);
@@ -87,14 +81,8 @@ public class C_QSortOptimized {
             ++k;
         }
 
-
-
         lt--;
         gt++;
-
-
-
-
 
         swapsort(input, left, lt);
         swapsort(input, right, gt);
