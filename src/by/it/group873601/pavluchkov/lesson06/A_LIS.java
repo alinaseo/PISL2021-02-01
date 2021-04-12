@@ -3,6 +3,7 @@ package by.it.group873601.pavluchkov.lesson06;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -32,6 +33,21 @@ import java.util.Scanner;
 
 public class A_LIS {
 
+    int lis(int[] A, int i, int n, int prev) {
+        if (i == n) {
+            return 0;
+        }
+
+        int excl = lis(A, i + 1, n, prev);
+
+        int incl = 0;
+
+        if (A[i] > prev) {
+            incl = 1 + lis(A, i + 1, n, A[i]);
+        }
+
+        return Integer.max(incl, excl);
+    }
 
     int getSeqSize(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -47,6 +63,7 @@ public class A_LIS {
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
 
+        result = lis(m, 0, m.length, Integer.MIN_VALUE);
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
