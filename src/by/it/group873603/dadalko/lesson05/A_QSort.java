@@ -1,5 +1,6 @@
 package by.it.group873603.dadalko.lesson05;
 
+import java.awt.desktop.SystemEventListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -105,10 +106,12 @@ public class A_QSort {
         for (int i = 0; i < n; i++) {
             //читаем начало и конец каждого отрезка
             segments[i] = new Segment(scanner.nextInt(), scanner.nextInt());
+            //System.out.println(segments[i].start +" "+ segments[i].stop);
         }
         //читаем точки
         for (int i = 0; i < m; i++) {
             points[i] = scanner.nextInt();
+            //System.out.println(points[i]);
         }
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор

@@ -35,7 +35,7 @@ Sample Output:
 
 public class C_GetInversions {
 
-    int calc(InputStream stream) throws FileNotFoundException {
+    int calc(InputStream stream) {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!
@@ -48,10 +48,8 @@ public class C_GetInversions {
         }
         int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
-
         int[] res = mergeSort(a, 0, a.length - 1);
         result = count;
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
