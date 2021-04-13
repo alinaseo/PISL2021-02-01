@@ -3,6 +3,7 @@ package by.it.group873601.vlasova.lesson07;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -53,9 +54,63 @@ public class C_EditDist {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
+
+        int[][] dp = new int[one.length() + 1][two.length() + 1];
+        char[][] operation = new char[one.length() + 1][two.length() + 1];
+
+        for (int i = 0; i <= one.length(); i++) {
+            for (int j = 0; j <= two.length(); j++) {
+                if (i == 0) {
+                    dp[i][j] = j;
+                    operation[i][j] = '+';
+                } else if (j == 0) {
+                    dp[i][j] = i;
+                    operation[i][j] = '-';
+                } else {
+                    int eq = one.charAt(i - 1) == two.charAt(j - 1) ? 0 : 1;
+                    int[] options = new int[]{
+                            dp[i - 1][j - 1] + eq,
+                            dp[i - 1][j] + 1,
+                            dp[i][j - 1] + 1};
+
+                    dp[i][j] = Arrays.stream(options).min().orElse(Integer.MAX_VALUE);
+
+                    if(dp[i][j] == options[0])
+                        operation[i][j] = eq == 0 ? '#' : '~';
+                    else if(dp[i][j] == options[1])
+                        operation[i][j] = '-';
+                    else
+                        operation[i][j] = '+';
+                }
+            }
+        }
+
+        int i = one.length(), j = two.length();
+       do {
+            result.append(',');
+            switch (operation[i][j]) {
+                case '#' -> {
+                    i--; j--;
+                    result.append("#");
+                }
+                case '~' -> {
+                    i--; j--;
+                    result.append(two.charAt(j)).append("~");
+                }
+                case '-' -> {
+                    i--;
+                    result.append(one.charAt(i)).append("-");
+                }
+                case '+' -> {
+                    j--;
+                    result.append(two.charAt(j)).append("~");
+                }
+            }
+        } while (i != 0 || j != 0);
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return result.reverse().toString();
     }
 
 

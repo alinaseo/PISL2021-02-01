@@ -3,6 +3,7 @@ package by.it.group873601.vlasova.lesson06;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -47,6 +48,17 @@ public class A_LIS {
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
 
+        int[] lis = new int[n];
+        Arrays.fill(lis, 1);
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (m[i] > m[j] && lis[i] < lis[j] + 1)
+                    lis[i] = lis[j] + 1;
+            }
+        }
+
+        result = Arrays.stream(lis).summaryStatistics().getMax();
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;

@@ -3,6 +3,7 @@ package by.it.group873601.vlasova.lesson07;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -45,6 +46,27 @@ public class A_EditDist {
 
 
         int result = 0;
+
+        if (one.isEmpty())
+            return two.length();
+
+        if (two.isEmpty())
+            return one.length();
+
+        int[] options = new int[3];
+
+        options[0] = getDistanceEdinting(
+                one.substring(1), two.substring(1))
+                + (one.charAt(0) == two.charAt(0) ? 0 : 1);
+
+        options[1] = getDistanceEdinting(
+                one.substring(1), two) + 1;
+
+        options[2] = getDistanceEdinting(
+                one, two.substring(1)) + 1;
+
+        result = Arrays.stream(options).min().orElse(Integer.MAX_VALUE);
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
