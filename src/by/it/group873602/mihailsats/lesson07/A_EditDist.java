@@ -39,14 +39,57 @@ import java.util.Scanner;
 
 public class A_EditDist {
 
-
+    //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
     int getDistanceEdinting(String one, String two) {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
 
         int result = 0;
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
+        int[][] distances = new int[one.length() + 1][two.length() + 1];
+        for (int i = 0; i < one.length() + 1; i++) {
+            for (int j = 0; j < two.length() + 1; j++) {
+                distances[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        for (int i = 0; i < one.length() + 1; i++) {
+            for (int j = 0; j < two.length() + 1; j++) {
+                result = editDistTD(i, j, distances, one, two);
+            }
+
+        }
         return result;
+    }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
+    int editDistTD(int i, int j, int[][] distances, String one, String two) {
+
+        if (distances[i][j] == Integer.MAX_VALUE) {
+            if (i == 0) {
+                distances[i][j] = j;
+            } else {
+                if (j == 0) {
+                    distances[i][j] = i;
+                } else {
+                    int insert = editDistTD(i, j - 1, distances, one, two) + 1;
+                    int delete = editDistTD(i - 1, j, distances, one, two) + 1;
+                    int replace = editDistTD(i - 1, j - 1, distances, one, two) + getDiff(one.charAt(i - 1), two.charAt(j - 1));
+
+                    distances[i][j] = getMin(insert, delete, replace);
+                }
+            }
+        }
+        return distances[i][j];
+    }
+
+    int getDiff(char one, char two) {
+        return one != two ? 1 : 0;
+    }
+
+    int getMin(int one, int two, int three) {
+        int min = -1;
+        min = Math.min(two, one);
+        min = Math.min(min, three);
+        return min;
     }
 
 
