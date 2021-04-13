@@ -30,6 +30,22 @@ import java.util.Scanner;
 
 public class B_LongDivComSubSeq {
 
+    int gms(int[] A, int i, int n, int prev) {
+        if (i == n) {
+            return 0;
+        }
+
+        int excl = gms(A, i + 1, n, prev);
+
+        int incl = 0;
+
+        if (A[i] % prev != 0) {
+            incl = 1 + gms(A, i + 1, n, A[i]);
+        }
+
+        return Integer.max(incl, excl);
+    }
+
 
     int getDivSeqSize(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -44,6 +60,8 @@ public class B_LongDivComSubSeq {
         }
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
+
+        result = gms(m, 0, m.length, Integer.MIN_VALUE);
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
