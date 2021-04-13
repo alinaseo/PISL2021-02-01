@@ -55,35 +55,6 @@ public class B_MergeSort {
         }
     }
 
-    int[] merge_sort(int[] leftPart, int[] rightPart, int leftIndex, int rightIndex) {
-        if (leftIndex >= rightIndex - 1) {
-            return leftPart;
-        }
-        int middleIndex = leftIndex + (rightIndex - leftIndex) / 2;
-        int[] leftSortedArray = merge_sort(leftPart, rightPart, leftIndex, middleIndex);
-        int[] rightSortedArray = merge_sort(leftPart, rightPart, middleIndex, rightIndex);
-        int[] result;
-        int leftI = leftIndex, rightI = middleIndex, resI = leftIndex;
-        if (leftSortedArray == leftPart) {
-            result = rightPart;
-        } else {
-            result = leftPart;
-        }
-        while (leftI < middleIndex && rightI < rightIndex) {
-            if (leftSortedArray[leftI] < rightSortedArray[rightI]) {
-                result[resI++] = leftSortedArray[leftI++];
-            } else {
-                result[resI++] = rightSortedArray[rightI++];
-            }
-        }
-        while (leftI < middleIndex) {
-            result[resI++] = leftSortedArray[leftI++];
-        }
-        while (rightI < rightIndex) {
-            result[resI++] = rightSortedArray[rightI++];
-        }
-        return result;
-    }
 
     int[] getMergeSort(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -105,8 +76,7 @@ public class B_MergeSort {
 
 
 
-        //a = mergeSort(a, 0, a.length - 1);
-        a = merge_sort(Arrays.copyOf(a, a.length), new int[a.length], 0, a.length);
+        a = mergeSort(a, 0, a.length - 1);
 
 
 

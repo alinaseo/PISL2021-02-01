@@ -40,6 +40,22 @@ public class B_Knapsack {
 
 
         int result = 0;
+
+        int[][] m = new int[n + 1][w + 1];
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= w; j++) {
+                if (gold[i - 1] > j) {
+                    m[i][j] += m[i - 1][j];
+                }
+                else {
+                    m[i][j] += Math.max(m[i - 1][j], m[i - 1][j - gold[i - 1]] + gold[i - 1]);
+                }
+            }
+        }
+
+        result = m[n][w];
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }

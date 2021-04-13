@@ -3,6 +3,7 @@ package by.it.group873602.trotski.lesson06;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -46,7 +47,16 @@ public class A_LIS {
         }
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
-
+        int[] memoization = new int[n];
+        for (int i = 0; i < n; i++) {
+            memoization[i] = 1;
+            for (int j = 0; j <= i - 1; j++) {
+                if (m[j] < m[i] && (memoization[j] + 1) > memoization[i]) {
+                    memoization[i] = memoization[j] + 1;
+                }
+            }
+        }
+        result = Arrays.stream(memoization).max().getAsInt();
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;

@@ -3,7 +3,7 @@ package by.it.group873601.pavluchkov.lesson06;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Scanner;
+import java.util.*;
 
 /*
 Задача на программирование: наибольшая невозростающая подпоследовательность
@@ -38,6 +38,44 @@ import java.util.Scanner;
 
 public class C_LongNotUpSubSeq {
 
+    public List<Integer> LDS(int[] A) {
+        int[] d = new int[A.length];
+        int[] p = new int[A.length];
+
+        for (int i = 0; i < A.length; i++) {
+            d[i] = 1;
+            p[i] = -1;
+
+            for (int j = 0; j < i; j++) {
+                if (A[j] >= A[i] && 1 + d[j] > d[i]) {
+                    d[i] = 1 + d[j];
+                    p[i] = j;
+                }
+            }
+        }
+
+        int ans = d[0];
+        int pos = 0;
+
+        for (int i = 0; i < A.length; i++) {
+            if (d[i] > ans) {
+                ans = d[i];
+                pos = i;
+            }
+        }
+
+        List<Integer> indexes = new ArrayList<>();
+
+        while(pos != -1) {
+            indexes.add(pos + 1);
+            pos = p[pos];
+        }
+
+        Collections.reverse(indexes);
+
+        return indexes;
+    }
+
     int getNotUpSeqSize(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
@@ -52,6 +90,14 @@ public class C_LongNotUpSubSeq {
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
 
+        List<Integer> indexes = LDS(m);
+
+        result = indexes.size();
+
+        for (int i = 0; i < result; i++) {
+            System.out.print(indexes.get(i) + " ");
+        }
+        System.out.println();
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;

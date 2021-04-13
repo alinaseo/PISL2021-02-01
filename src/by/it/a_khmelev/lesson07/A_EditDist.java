@@ -60,4 +60,3 @@ public class A_EditDist {
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
     }
 }
-
