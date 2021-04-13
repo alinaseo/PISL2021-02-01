@@ -47,6 +47,25 @@ public class A_LIS {
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
 
+        int[] len = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            len[i] = 1;
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (m[j] > m[i]) {
+                    if (len[i] + 1 > len[j]) {
+                        len[j] = len[i] + 1;
+                        if (len[j] > result) {
+                            result = len[j];
+                        }
+                    }
+                }
+            }
+        }
+
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;

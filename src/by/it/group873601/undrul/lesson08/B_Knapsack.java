@@ -37,9 +37,20 @@ public class B_Knapsack {
         for (int i = 0; i < n; i++) {
             gold[i]=scanner.nextInt();
         }
-
-
         int result = 0;
+        int[][] a = new int[n + 1][w + 1];
+        for (int i = 0; i <= w; i++) {
+            a[0][i] = 0;
+        }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= w; j++) {
+                a[i][j] = a[i - 1][j];
+                if (j > gold[i - 1] && (a[i - 1][j - gold[i - 1]] + gold[i - 1] > a[i][j]))
+                    a[i][j] = a[i - 1][j - gold[i - 1]] + gold[i - 1];
+            }
+        }
+
+        result = a[n][w];
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
