@@ -51,12 +51,75 @@ public class C_EditDist {
 
     String getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+        StringBuilder result = new StringBuilder();
 
+        int[][] levensteignDistances = new int[one.length() + 1][two.length() + 1];
 
-        String result = "";
+        for (int i = 0; i < one.length() + 1; i++) {
+            levensteignDistances[i][0] = i;
+        }
+
+        for (int j = 0; j < two.length() + 1; j++) {
+            levensteignDistances[0][j] = j;
+        }
+
+        for (int i = 0; i < one.length(); i++) {
+            for (int j = 0; j < two.length(); j++) {
+                int cost = getDiff(one.charAt(i), two.charAt(j));
+                levensteignDistances[i + 1][j + 1] = Math.min(
+                        levensteignDistances[i][j + 1] + 1,Math.min(
+                        levensteignDistances[i + 1][j] + 1,
+                        levensteignDistances[i][j] + cost));
+            }
+        }
+
+        int a = one.length();
+        int b = two.length();
+
+        while (a >= 1) {
+            while (b >= 1) {
+                int needToBeInsert = levensteignDistances[a][b - 1];
+                int needToBeDelete = levensteignDistances[a - 1][b];
+                int needToBeReplace = levensteignDistances[a - 1][b - 1];
+                int minimum = Math.min(
+                        needToBeDelete,Math.min(
+                        needToBeInsert,
+                        needToBeReplace));
+
+                if (minimum == needToBeReplace) {
+                    int cost = getDiff(one.charAt(a - 1), two.charAt(b - 1));
+                    switch (cost) {
+                        case 0: {
+                            result.append("#,");
+                        }
+                        break;
+                        case 1: {
+                            result.append("~").append(two.charAt(b - 1)).append(",");
+                        }
+                        break;
+                    }
+                    a--;
+                    b--;
+                }
+                if (minimum == needToBeDelete) {
+                    result.append("-").append(one.charAt(a - 1)).append(",");
+                    a--;
+                } else {
+                    if (minimum == needToBeInsert) {
+                        result.append("+").append(two.charAt(b - 1)).append(",");
+                        b--;
+                    }
+                }
+            }
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return result.toString();
     }
+
+    int getDiff(char one, char two) {
+        return one != two ? 1 : 0;
+    }
+
 
 
     public static void main(String[] args) throws FileNotFoundException {
