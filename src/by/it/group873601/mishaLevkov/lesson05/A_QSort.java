@@ -47,36 +47,40 @@ public class A_QSort {
         @Override
         public int compareTo(Object o) {
             //подумайте, что должен возвращать компаратор отрезков
-            if (o instanceof Integer)  return Integer.compare(this.start, (int) o);
-            return -1;
+            if (this.start != ((Segment)o).start) {
+                return Integer.compare(this.start, ((Segment)o).start);
+            }
+            return Integer.compare(this.stop, ((Segment)o).stop);
         }
     }
 
-    void quickSort(Segment[] arr, int start, int end) {
-        if (start < end) {
-            int divideIndex = partition(arr, start, end);
-            quickSort(arr, start, divideIndex - 1);
-            quickSort(arr, divideIndex + 1, end);
-        }
-    }
-
-    int partition(Segment[] arr, int start, int end) {
-        Segment pivot = arr[start];
-        int i = start - 1;
-        for (int j = start; j < end; j++) {
-            if (arr[j].compareTo(pivot) <= 0) {
+    public static void quickSort(Segment[] s, int low, int high) {
+        if (s.length == 0)return;
+        if (low >= high) return;
+        int middle = (low + high) / 2;
+        Segment pivot = s[middle];
+        int i = low, j = high;
+        while (i <= j) {
+            while (s[i].compareTo(pivot) < 0) {
                 i++;
-                Segment temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+            }
+            while (s[j].compareTo(pivot) > 0) {
+                j--;
+            }
+            if (i <= j) {
+                Segment temp = s[i];
+                s[i] = s[j];
+                s[j] = temp;
+                i++;
+                j--;
             }
         }
-        Segment temp = arr[i + 1];
-        arr[i + 1] = arr[end];
-        arr[end] = temp;
-
-        return i + 1;
+        if (low < j) quickSort(s, low, j);
+        if (high > i) quickSort(s, i, high);
     }
+
+
+
 
 
     int[] getAccessory(InputStream stream) throws FileNotFoundException {

@@ -42,9 +42,9 @@ public class A_VideoRegistrator {
 
         while (i < events.length) {
             result.add(events[i]);
-            double endTime = events[i] + workDuration;
+            double dur = events[i] + workDuration;
             i++;
-            while (events[i] <= endTime) {
+            while (events[i] <= dur) {
                 i++;
                 if (i == events.length) break;
             }
