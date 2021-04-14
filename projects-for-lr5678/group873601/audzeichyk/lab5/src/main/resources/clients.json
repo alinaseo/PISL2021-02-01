@@ -1,0 +1,18 @@
+[
+  {
+    "lastname": "Statham",
+    "firstname": "Json",
+    "middlename": "Olegovitsch",
+    "dateOfBirth": "Jan 1, 1900, 12:00:00 AM",
+    "passportSeries": "AB",
+    "passportNumber": "1233211",
+    "cityOfResidence": "MINSK",
+    "addressOfResidence": "пр. Независимости, 1",
+    "cellphoneNumber": "+375-29-444-44-44",
+    "email": "json@test.ts",
+    "isEmployed": true,
+    "position": "QA Engineer",
+    "cityOfRegistration": "MINSK",
+    "citizenship": "BELARUS"
+  }
+]

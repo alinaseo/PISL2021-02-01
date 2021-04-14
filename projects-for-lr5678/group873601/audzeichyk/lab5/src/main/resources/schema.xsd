@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://localhost/clients"
+        xmlns:clients="http://localhost/clients">
+
+    <element name="clients">
+        <complexType>
+            <sequence>
+                <element name="client"
+                         type="clients:Client"
+                         maxOccurs="unbounded" />
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="Client">
+        <sequence>
+            <element name="lastname" type="string" />
+            <element name="firstname" type="string" />
+            <element name="middlename" type="string" />
+            <element name="dateOfBirth" type="date" />
+            <element name="passportSeries" type="string" />
+            <element name="passportNumber">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[0-9]{7}" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="cityOfResidence" type="clients:city" />
+            <element name="addressOfResidence" type="string" />
+            <element name="cellphoneNumber" minOccurs="0">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="\+375-[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}" />
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="email" type="string" minOccurs="0" />
+            <element name="isEmployed" type="boolean" minOccurs="0" />
+            <element name="position" type="string" minOccurs="0" />
+            <element name="cityOfRegistration" type="clients:city" />
+            <element name="citizenship" type="clients:citizenship" />
+        </sequence>
+    </complexType>
+
+    <simpleType name="city">
+        <restriction base="string">
+            <enumeration value="Minsk" />
+            <enumeration value="Brest" />
+            <enumeration value="Grodno" />
+            <enumeration value="Vitebsk" />
+            <enumeration value="Mogilev" />
+            <enumeration value="Gomel" />
+        </restriction>
+    </simpleType>
+
+    <simpleType name="citizenship">
+        <restriction base="string">
+            <enumeration value="BELARUS" />
+            <enumeration value="LATVIA" />
+            <enumeration value="LITHUANIA" />
+            <enumeration value="POLAND" />
+            <enumeration value="RUSSIA" />
+            <enumeration value="UKRAINE" />
+        </restriction>
+    </simpleType>
+</schema>
