@@ -126,13 +126,13 @@ public class A_Huffman {
         //1. переберем все символы по очереди и рассчитаем их частоту в Map count
         //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
         Map<Character, Integer> count = new HashMap<>();
-        for(char symbol : s.toCharArray()) {
-            if(count.containsKey(symbol)) {
-                count.replace(symbol, count.get(symbol) + 1);
-            } else {
-                count.put(symbol, 1);
+            for(char symbol : s.toCharArray()) {
+                if(count.containsKey(symbol)) {
+                    count.replace(symbol, count.get(symbol) + 1);
+                } else {
+                    count.put(symbol, 1);
+                }
             }
-        }
 
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
