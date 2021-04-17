@@ -39,32 +39,35 @@ import java.util.Scanner;
 
 public class B_EditDist {
 
-    private static int min(int n1, int n2, int n3) {
+    private int min(int n1, int n2, int n3) {
         return Math.min(Math.min(n1, n2), n3);
     }
 
-    public static int getDistanceEdinting(String one, String two) {
-        int[] Di_1 = new int[two.length() + 1];
-        int[] Di = new int[two.length() + 1];
+    int compare(char one, char two){
+        if (one == two)
+            return 0;
+        else
+            return 1;
+    }
 
-        for (int j = 0; j <= two.length(); j++) {
-            Di[j] = j;
+    public int getDistanceEdinting(String one, String two) {
+        int[][] conversionTable = new int[one.length() + 1][two.length() + 1];
+        for (int i = 0; i < one.length() + 1; i++) {
+            conversionTable[i][0] = i;
         }
-
-        for (int i = 1; i <= one.length(); i++) {
-            System.arraycopy(Di, 0, Di_1, 0, Di_1.length);
-            Di[0] = i;
-            for (int j = 1; j <= two.length(); j++) {
-                int cost = (one.charAt(i - 1) != two.charAt(j - 1)) ? 1 : 0;
-                Di[j] = min(
-                        Di_1[j] + 1,
-                        Di[j - 1] + 1,
-                        Di_1[j - 1] + cost
-                );
+        for (int j = 0; j < two.length() + 1; j++) {
+            conversionTable[0][j] = j;
+        }
+        for (int i = 0; i < one.length(); i++) {
+            for (int j = 0; j < two.length(); j++) {
+                int cost = compare(one.charAt(i), two.charAt(j));
+                conversionTable[i + 1][j + 1] = min(
+                        conversionTable[i][j + 1] + 1,
+                        conversionTable[i + 1][j] + 1,
+                        conversionTable[i][j] + cost);
             }
         }
-
-        return Di[Di.length - 1];
+        return conversionTable[one.length()][two.length()];
     }
 
     public static void main(String[] args) throws FileNotFoundException {

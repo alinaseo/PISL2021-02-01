@@ -39,11 +39,33 @@ import java.util.Scanner;
 
 public class A_EditDist {
 
-    String getDistanceEdinting(String one, String two) {
+    static int LevenshteinDistance(String text1, int len1, String text2, int len2){
+        if (len1 == 0){
+            return len2;
+        }
+
+        if (len2 == 0){
+            return len1;
+        }
+
+        int substitutionCost = 0;
+        if(text1.charAt(len1 - 1) != text2.charAt(len2 - 1)){
+            substitutionCost = 1;
+        }
+
+        int deletion = LevenshteinDistance(text1, len1 - 1, text2, len2) + 1;
+        int insertion = LevenshteinDistance(text1, len1, text2, len2 - 1) + 1;
+        int substitution = LevenshteinDistance(text1, len1 - 1, text2, len2 - 1) + substitutionCost;
+        return min(deletion, insertion, substitution);
+    }
+
+    private static int min(int n1, int n2, int n3) {
+        return Math.min(Math.min(n1, n2), n3);
+    }
+
+    int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-        String result = "";
+        int result = LevenshteinDistance(one, one.length(), two, two.length());
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
