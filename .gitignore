@@ -1,7 +1,9 @@
 .idea
+target
+out
 
 *.class
-*.jar0
+*.jar
 *.war
 *.ear
 *.iml

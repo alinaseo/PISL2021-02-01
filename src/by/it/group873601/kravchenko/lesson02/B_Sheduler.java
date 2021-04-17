@@ -2,6 +2,7 @@ package by.it.group873601.kravchenko.lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 /*
 даны интервальные события events
@@ -50,33 +51,16 @@ public class B_Sheduler {
         result = new ArrayList<>();
         //ваше решение.
 
-        Arrays.sort(events, (event1, event2) -> {
-            if (event1.start == event2.start)
-                return Integer.compare(event1.stop, event2.stop);
-            return Integer.compare(event1.start, event2.start);
-        });
+        //общая сложность = O(n * log n) где логарифм - это сортировка
+        Arrays.sort(events, Comparator.comparingInt(event -> event.stop));
+        int j = 0;
+        while (j < events.length && events[j].start >= from && events[j].stop <= to) {
+            result.add(events[j]);
+            j++;
+            while (j < events.length && events[j].start < result.get(result.size() - 1).stop)
+                j++;
 
-        int i = 0;
-        while (i < events.length && (events[i].start < from))
-            i++;
-
-        int min;
-        int current = from;
-        do {
-            min = -1;
-            for (int j = i; j < events.length; j++) {
-                if (current <= events[j].start && events[j].stop <= to && (min == -1 || events[j].stop < events[min].stop))
-                    min = j;
-            }
-            if (min != -1) {
-                result.add(events[min]);
-                i = min + 1;
-                current = events[min].stop;
-            }
-
-        } while (min != -1);
-
-
-        return result;                        //вернем итог
+        }
+        return result;  //вернем итог
     }
 }
