@@ -45,7 +45,18 @@ public class C_Stairs {
         int result = 0;
 
 
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (i == 0)
+                arr[0] = stairs[0];
+            else if (i == 1)
+                arr[i] = Math.max(arr[0] + stairs[i], stairs[i]);
+            else
+                arr[i] = Math.max(arr[i - 1] + stairs[i], arr[i - 2] + stairs[i]);
 
+        }
+
+        result = arr[arr.length - 1];
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
