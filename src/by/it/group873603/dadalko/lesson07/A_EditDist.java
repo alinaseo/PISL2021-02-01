@@ -45,10 +45,54 @@ public class A_EditDist {
 
 
         int result = 0;
+        int[][] distances = new int[one.length() + 1][two.length() + 1];
+        for (int i = 0; i < one.length() + 1; i++) {
+            for (int j = 0; j < two.length() + 1; j++) {
+                distances[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        for (int i = 0; i < one.length() + 1; i++) {
+            for (int j = 0; j < two.length() + 1; j++) {
+                result = editDistance(i, j, distances, one, two);
+            }
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
+
+    static int editDistance(int i, int j, int[][] distances, String one, String two) {
+        if (distances[i][j] == Integer.MAX_VALUE) {
+            if (i == 0) {
+                distances[i][j] = j;
+            } else {
+                if (j == 0) {
+                    distances[i][j] = i;
+                } else {
+                    int insert = editDistance(i, j - 1, distances, one, two) + 1;
+                    int delete = editDistance(i - 1, j, distances, one, two) + 1;
+                    int replace = editDistance(i - 1, j - 1, distances, one, two) + diff(one.charAt(i - 1), two.charAt(j - 1));
+
+                    distances[i][j] = min(insert, delete, replace);
+                }
+            }
+        }
+        return distances[i][j];
+    }
+
+    static int diff(char a, char b) {
+        return a == b ? 0 : 1;
+    }
+
+    static int min(int a, int b, int c) {
+        if (a <= b && a <= c)
+            return a;
+        else if (b <= a && b <= c)
+            return b;
+        else
+            return c;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
