@@ -64,12 +64,6 @@ public class C_QSortOptimized {
         int lt = left + 1;
         int gt = right - 1;
         int k = lt;
-
-
-
-
-
-
         while (k <= gt) {
             if (input[k].compareTo(segment) < 0) {
                 swapsort(input, k, lt++);
@@ -87,14 +81,8 @@ public class C_QSortOptimized {
             ++k;
         }
 
-
-
         lt--;
         gt++;
-
-
-
-
 
         swapsort(input, left, lt);
         swapsort(input, right, gt);
@@ -169,24 +157,25 @@ public class C_QSortOptimized {
         int n = scanner.nextInt();
         Segment[] segments=new Segment[n];
         //число точек
+        int i=0;
         int m = scanner.nextInt();
         int[] points=new int[m];
         int[] result=new int[m];
 
         //читаем сами отрезки
-        for (int i = 0; i < n; i++) {
+        for ( i = 0; i < n; i++) {
             //читаем начало и конец каждого отрезка
             segments[i]=new Segment(scanner.nextInt(),scanner.nextInt());
         }
         //читаем точки
-        for (int i = 0; i < n; i++) {
+        for (i = 0; i < n; i++) {
             points[i]=scanner.nextInt();
         }
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
         sortirovk(segments, 0, segments.length - 1);
 
-        for (int i = 0; i < points.length; i++) {
+        for ( i = 0; i < points.length; i++) {
             int count = count(segments, points[i], segments.length);
             result[i] = count == -1 ? 0 : count;
         }

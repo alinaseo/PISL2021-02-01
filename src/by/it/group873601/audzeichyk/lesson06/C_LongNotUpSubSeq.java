@@ -52,7 +52,43 @@ public class C_LongNotUpSubSeq {
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
 
+        int[] p = new int[n];
+        int[] ind = new int[n + 1];
 
+        int l = 0;
+
+        for (int i = 0; i < n; i++) {
+            int lo = 1;
+            int hi = l;
+
+            while(lo <= hi) {
+                int mid = (int) Math.ceil((double) (lo + hi) / 2);
+                if (m[ind[mid]] >= m[i]) {
+                    lo = mid + 1;
+                } else {
+                    hi = mid - 1;
+                }
+            }
+
+            int nl = lo;
+
+            p[i] = ind[nl - 1];
+            ind[nl] = i;
+
+            if (nl > l) {
+                l = nl;
+            }
+        }
+        result = l;
+
+        StringBuilder builder = new StringBuilder();
+        int k = ind[l];
+        for (int i = l - 1; i >= 0; i--) {
+            builder.append(" ").append(k + 1);
+            k = p[k];
+        }
+        builder.reverse();
+        System.out.println(builder.toString());
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }

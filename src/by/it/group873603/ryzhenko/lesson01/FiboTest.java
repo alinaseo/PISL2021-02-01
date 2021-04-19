@@ -42,3 +42,4 @@ public class FiboTest {
         assertTrue("fasterC failed 3", fibo.fasterC(999999999,321)==34L);
     }
 }
+//я на паре
