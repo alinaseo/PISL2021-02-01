@@ -1,6 +1,5 @@
 package by.it.group873603.mikhayevich.lesson05;
 
-import by.it.group873601.audzeichyk.lesson05.C_QSortOptimized;
 import org.junit.Test;
 
 import java.io.FileInputStream;
