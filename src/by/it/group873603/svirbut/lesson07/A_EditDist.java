@@ -47,7 +47,7 @@ public class A_EditDist {
             return n;
         }
 
-        int insert = editingDistance(n, m - 1, one, two) + 1;
+        int insert = editingDistance(n, m - 1, one, two) + 1;//рекурсия
         int delete = editingDistance(n - 1, m, one, two) + 1;
         int replace = editingDistance(n - 1, m - 1, one, two) + (one.charAt(n - 1) == two.charAt(m - 1) ? 0 : 1);
 
