@@ -24,7 +24,7 @@ public class FiboC {
     long fasterC(long n, int m) {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
-        //см. период Пизано
+            //см. период Пизано
         int size = 6*m+1;
         long [] pisano = new long[size];
         pisano[0] = 1;
