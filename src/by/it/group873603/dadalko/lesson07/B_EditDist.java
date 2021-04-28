@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
+import static by.it.group873603.dadalko.lesson07.A_EditDist.*;
 
 /*
 Задача на программирование: расстояние Левенштейна
@@ -42,12 +43,27 @@ public class B_EditDist {
 
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+        int[][] distances = new int[one.length() + 1][two.length() + 1];
 
+        for (int i = 0; i < one.length() + 1; i++) {
+            distances[i][0] = i;
+        }
 
+        for (int j = 0; j < two.length() + 1; j++) {
+            distances[0][j] = j;
+        }
 
-        int result = 0;
+        for (int i = 0; i < one.length(); i++) {
+            for (int j = 0; j < two.length(); j++) {
+                int cost = diff(one.charAt(i), two.charAt(j));
+                distances[i + 1][j + 1] = min(
+                        distances[i][j + 1] + 1,
+                        distances[i + 1][j] + 1,
+                        distances[i][j] + cost);
+            }
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return distances[one.length()][two.length()];
     }
 
 

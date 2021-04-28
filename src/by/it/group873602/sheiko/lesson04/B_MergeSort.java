@@ -22,6 +22,7 @@ Sample Output:
 */
 public class B_MergeSort {
 
+    /*
     int[] merge(int[] ar_1, int[] ar_2){
         int max = ar_1.length + ar_2.length;
         int[] result = new int[max];
@@ -43,6 +44,7 @@ public class B_MergeSort {
         }
         return result;
     }
+    */
 
     /*
     int[] mergeSort(int[] arr, int l, int r){
@@ -65,15 +67,16 @@ public class B_MergeSort {
 
         int middle = (left + right) / 2;
 
-        // разделяй и сортируй
+        // рекурсивная сортировка двух частей
         int[] l_buff = mergeSort(up, down, left, middle);
         int[] r_buff = mergeSort(up, down, middle + 1, right);
 
         // слияние двух отсортированных половин
         int[] target;
-        if (l_buff == up) target = down;
-        else target = up;
-
+        if (l_buff == up)
+            target = down;
+        else
+            target = up;
         int l_cur = left;
         int r_cur = middle + 1;
         for (int i = left; i <= right; i++){
