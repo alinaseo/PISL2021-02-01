@@ -44,9 +44,22 @@ public class C_Stairs {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         int result = 0;
 
+        int [] destination = new int[n];
+        for(int i = 0; i < n; i++){
+            switch (i){
+                case 0:
+                    destination[0] = stairs[0];
+                    break;
+                case 1:
+                    destination[i] = Math.max(destination[0] + stairs[i], stairs[i]);
+                    break;
+                default:
+                    destination[i] = Math.max(destination[i - 1] + stairs[i], destination[i - 2] + stairs[i]);
+                    break;
+            }
+        }
 
-
-
+        result = destination[destination.length - 1];
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }

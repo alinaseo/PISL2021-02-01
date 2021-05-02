@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tc:clients xmlns:tc="http://localhost/clients" >
+
+    <client>
+        <lastname>Иванов</lastname>
+        <firstname>Иван</firstname>
+        <middlename>Иванович</middlename>
+        <dateOfBirth>1990-01-01</dateOfBirth>
+        <passportSeries>AB</passportSeries>
+        <passportNumber>9876542</passportNumber>
+        <cityOfResidence>Minsk</cityOfResidence>
+        <addressOfResidence>ул. Дружко, д. 666</addressOfResidence>
+        <cellphoneNumber>+375-17-290-00-01</cellphoneNumber>
+        <cityOfRegistration>Minsk</cityOfRegistration>
+        <citizenship>BELARUS</citizenship>
+    </client>
+
+    <client>
+        <lastname>Смирнов</lastname>
+        <firstname>Виталий</firstname>
+        <middlename>Болеславович</middlename>
+        <dateOfBirth>2000-02-02</dateOfBirth>
+        <passportSeries>PP</passportSeries>
+        <passportNumber>1234567</passportNumber>
+        <cityOfResidence>Brest</cityOfResidence>
+        <addressOfResidence>пр. Машерова, д. 123</addressOfResidence>
+        <email>vitalik0123@gmail.com</email>
+        <cityOfRegistration>Gomel</cityOfRegistration>
+        <citizenship>UKRAINE</citizenship>
+    </client>
+
+</tc:clients>
