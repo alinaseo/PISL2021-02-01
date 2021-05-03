@@ -1,4 +1,4 @@
-package by.it.a_khmelev.lesson06;
+package by.it.group873601.kozlovskiu.lesson06;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -45,6 +45,21 @@ public class B_LongDivComSubSeq {
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
 
+        int[] memArr = new int[n];
+        for (int i = 0; i < n; i++) {
+            memArr[i] = 1;
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (m[j] % m[i] == 0) {
+                    if (memArr[i] + 1 > memArr[j]) {
+                        memArr[j] = memArr[i] + 1;
+                        result = Math.max(memArr[j],result);
+                    }
+                }
+            }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;

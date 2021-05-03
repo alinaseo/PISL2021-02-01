@@ -1,4 +1,4 @@
-package by.it.a_khmelev.lesson08;
+package by.it.group873601.kozlovskiu.lesson08;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,8 +38,21 @@ public class B_Knapsack {
             gold[i]=scanner.nextInt();
         }
 
-
         int result = 0;
+
+        int[][] arr = new int[n + 1][w + 1];
+        for (int i = 0; i <= w; i++) {
+            arr[0][i] = 0;
+        }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= w; j++) {
+                arr[i][j] = arr[i - 1][j];
+                if (j > gold[i - 1] && (arr[i - 1][j - gold[i - 1]] + gold[i - 1] > arr[i][j]))
+                    arr[i][j] = arr[i - 1][j - gold[i - 1]] + gold[i - 1];
+            }
+        }
+
+        result = arr[n][w];
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
@@ -54,3 +67,4 @@ public class B_Knapsack {
     }
 
 }
+

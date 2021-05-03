@@ -1,4 +1,4 @@
-package by.it.a_khmelev.lesson07;
+package by.it.group873601.kozlovskiu.lesson07;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,15 +42,35 @@ public class B_EditDist {
 
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+        int[] Di_1 = new int[two.length() + 1];
+        int[] Di = new int[two.length() + 1];
+
+        for (int j = 0; j <= two.length(); j++) {
+            Di[j] = j; // (i == 0)
+        }
+
+        for (int i = 1; i <= one.length(); i++) {
+            System.arraycopy(Di, 0, Di_1, 0, Di_1.length);
+
+            Di[0] = i; // (j == 0)
+            for (int j = 1; j <= two.length(); j++) {
+                int cost = (one.charAt(i - 1) != two.charAt(j - 1)) ? 1 : 0;
+                Di[j] = min(
+                        Di_1[j] + 1,
+                        Di[j - 1] + 1,
+                        Di_1[j - 1] + cost
+                );
+            }
+        }
 
 
-
-        int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return Di[Di.length - 1];
     }
 
-
+    private static int min(int n1, int n2, int n3) {
+        return Math.min(Math.min(n1, n2), n3);
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
