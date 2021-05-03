@@ -1,4 +1,4 @@
-package by.it.group873601.undrul.lesson04;
+package by.it.group873601.silitski.lesson04;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

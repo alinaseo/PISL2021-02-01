@@ -1,4 +1,4 @@
-package by.it.group873601.undrul.lesson08;
+package by.it.group873601.silitski.lesson08;
 
 import org.junit.Test;
 
