@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><clients xmlns:tc="http://localhost/clients">
+
+    <client>
+        <lastname>Шейко</lastname>
+        <firstname>Алина</firstname>
+        <middlename>Викторовна</middlename>
+        <dateOfBirth>2001-05-15</dateOfBirth>
+        <passportSeries>AB</passportSeries>
+        <passportNumber>1234567</passportNumber>
+        <cellphoneNumber>+375-33-609-08-14</cellphoneNumber>
+        <email>alinasheyko1505@gmail.com</email>
+        <isEmployed>true</isEmployed>
+        <position>UI/UX Designer</position>
+        <citizenship>BELARUS</citizenship>
+        <military>false</military>
+    </client>
+
+    <client>
+        <lastname>Синица</lastname>
+        <firstname>Дмитрий</firstname>
+        <middlename>Игоревич</middlename>
+        <dateOfBirth>2000-04-07</dateOfBirth>
+        <passportSeries>AB</passportSeries>
+        <passportNumber>7654321</passportNumber>
+        <cellphoneNumber>+375-29-802-99-53</cellphoneNumber>
+        <email>dmitsin@gmail.com</email>
+        <isEmployed>true</isEmployed>
+        <position>Java developer</position>
+        <citizenship>BELARUS</citizenship>
+        <military>true</military>
+    </client>
+
+</clients>

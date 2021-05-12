@@ -1,0 +1,1 @@
+xjc -d src\main\java -p xjc.generated -b src\main\resources\customBindings.xjb src\main\resources\clients.xsd
